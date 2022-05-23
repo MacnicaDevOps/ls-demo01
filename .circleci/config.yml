@@ -1,0 +1,110 @@
+version: 2.1
+
+executors:
+  builder:
+    machine: true
+  deployer:
+    docker:
+      - image: minepicco/cc-build-image:latest
+
+workflows:
+  version: 2.1
+  
+  build-deploy:
+    jobs:
+      - build_scan:
+          context: webpage_deployment
+      - hold:
+          type: approval
+          requires:
+            - build_scan
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - hold
+          context: webpage_deployment
+          filters:
+            branches:
+              only: master
+
+jobs:
+  build_scan:
+    executor: builder
+    
+    environment:
+      imagename: "minepicco"
+      
+    steps:
+      - checkout
+                     
+      - run:
+          name: Build Image
+          command: |
+            docker login -u $docker_user -p $docker_pass
+            docker build --tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM .
+
+      - run:
+          name: simple test
+          command: |
+            docker run --rm --name web -p 80:80 -d "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}"
+            sleep 1 && curl http://localhost
+            docker stop web
+
+      - run:
+          name: Twistlock Vuln/Compliance check
+          command: |
+            curl -k -u "${tl_u}:${tl_p}" --output twistcli "${TL_URL}/api/v1/util/twistcli" 
+            chmod a+x twistcli
+            sudo ./twistcli images scan --address "${TL_URL}" -u "${tl_u}" -p "${tl_p}" "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" --details --output-file temp.json
+
+      - run:
+          name: Triage vulnerabilities
+          command: |
+            cat temp.json | jq .results > result.json 
+            chmod a+x twistcli
+            sudo ./twistcli images scan --address "${TL_URL}" -u "${tl_u}" -p "${tl_p}" "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" --details --output-file temp.json
+                        
+      - run:
+          name: Publish Image
+          command: |
+            docker login -u $docker_user -p $docker_pass
+            docker tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM $imagename"/"$CIRCLE_PROJECT_REPONAME":latest"
+            docker push $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM 
+            docker push $imagename"/"$CIRCLE_PROJECT_REPONAME":latest"
+
+      - run:
+          name: Slack Notification
+          command: |
+            curl -X POST -d 'payload={"attachments": [{"text": "ビルドのスキャンが完了しました！'$CIRCLE_BUILD_URL'"}]}' $wh_url
+
+  deploy:
+    executor: deployer
+    environment:
+      comp: "low"
+      imagename: "minepicco"
+      
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - run:
+          name: Configure gcloud cli
+          command: |
+            echo $key>key.json
+            gcloud auth activate-service-account --key-file=key.json
+            gcloud beta container clusters get-credentials $cluster --region $region --project $project
+            
+      - run:
+          name: Create Kubernetes Manifest
+          command: |
+            deploy_image=$imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_PREVIOUS_BUILD_NUM
+            cat manifest_template.yaml > web.yaml
+            echo "          image: "$deploy_image >> web.yaml
+
+      - run:
+          name: deployment
+          command: |
+            kubectl apply -f web.yaml
+            kubectl get pods
