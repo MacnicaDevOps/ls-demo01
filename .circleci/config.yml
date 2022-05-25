@@ -42,6 +42,7 @@ jobs:
       - run:
           name: Build Image
           command: |
+            curl -sSL -k --header "authorization: Bearer ${pc_token}" -X POST https://asia-northeast1.cloud.twistlock.com/anz-3051008/api/v1/scripts/defender.sh  | sudo bash -s -- -c "asia-northeast1.cloud.twistlock.com" -d "none"  -m  
             docker login -u $docker_user -p $docker_pass
             docker build --tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM .
 
