@@ -56,9 +56,9 @@ jobs:
       - run:
           name: "Twistlock Vuln/Compliance check"
           command: |
-            curl -k -u "${tl_u}:${tl_p}" --output twistcli "${TL_URL}/api/v1/util/twistcli" 
+            curl -k -u "${pc_user}:${pc_pass}" --output twistcli "${pc_url}/api/v1/util/twistcli" 
             chmod a+x twistcli
-            sudo ./twistcli images scan --address "${TL_URL}" -u "${tl_u}" -p "${tl_p}" "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" --details
+            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" --details
 
       - run:
           name: "Triage vulnerabilities"
@@ -100,7 +100,7 @@ jobs:
       - run:
           name: Publish Image
           command: |
-            docker login -u $docker_user -p $docker_pass
+            docker login -u "${docker_user}" -p "${docker_pass}"
             docker tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM $imagename"/"$CIRCLE_PROJECT_REPONAME":latest"
             docker push $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM 
             docker push $imagename"/"$CIRCLE_PROJECT_REPONAME":latest"
