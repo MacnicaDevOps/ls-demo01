@@ -43,7 +43,7 @@ jobs:
           name: Build Image
           command: |
             docker login -u $docker_user -p $docker_pass
-            docker build --tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM .
+            docker build --tag "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" .
 
       - run:
           name: "simple test"
