@@ -48,7 +48,7 @@ jobs:
       - run:
           name: "simple test"
           command: |
-            docker run --rm --name web -p 80:80 -d "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}"
+            docker run --rm --name web -p 80:80 -d "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             sleep 1 && curl http://localhost
             docker stop web
 
@@ -57,14 +57,14 @@ jobs:
           command: |
             curl -k -u "${pc_user}:${pc_pass}" --output twistcli "${pc_url}/api/v1/util/twistcli" 
             chmod a+x twistcli
-            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" --details
+            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" --details
 
       - run:
           name: "Triage vulnerabilities"
           command: |
             app_name="CCI_Build_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
             aapp_priority="H"
-            curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" | jq -r '[ .[].entityInfo ]' > "${CIRCLE_BUILD_NUM}_ci_scan.json"
+            curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" | jq -r '[ .[].entityInfo ]' > "${CIRCLE_BUILD_NUM}_ci_scan.json"
             echo "LeanSeeksのアップロードURLを情報取得中"
             cred=$(curl -X 'GET' "${ls_url}/api/vulnerability-scan-results/upload-destination" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Authorization: Bearer ${ls_token}")
             s3_url=$(echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g')
