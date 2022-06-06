@@ -54,14 +54,14 @@ jobs:
             docker stop web
 
       - run:
-          name: Twistlock Vuln/Compliance check
+          name: "Twistlock Vuln/Compliance check"
           command: |
             curl -k -u "${tl_u}:${tl_p}" --output twistcli "${TL_URL}/api/v1/util/twistcli" 
             chmod a+x twistcli
             sudo ./twistcli images scan --address "${TL_URL}" -u "${tl_u}" -p "${tl_p}" "${imagename}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}" --details
 
       - run:
-          name: Triage vulnerabilities
+          name: "Triage vulnerabilities"
           command: |
             app_name="CCI_Build_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
             aapp_priority="H"
