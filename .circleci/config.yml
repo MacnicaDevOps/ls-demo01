@@ -29,6 +29,7 @@ workflows:
             branches:
               only: master
 
+
 jobs:
   build_scan:
     executor: builder
@@ -61,7 +62,7 @@ jobs:
 
       - run:
           name: "Triage vulnerabilities"
-          command: |
+          command: |            
             app_name="CCI_Build_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
             aapp_priority="H"
             curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" | jq -r '[ .[].entityInfo ]' > "${CIRCLE_BUILD_NUM}_ci_scan.json"
