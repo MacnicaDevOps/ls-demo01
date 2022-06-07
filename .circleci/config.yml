@@ -66,9 +66,9 @@ jobs:
             aapp_priority="H"
             curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" | jq -r '[ .[].entityInfo ]' > "${CIRCLE_BUILD_NUM}_ci_scan.json"
             echo "LeanSeeksのアップロードURLを情報取得中"
-            cred=$(curl -X "GET" "${ls_url}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token}")
-            s3_url=$(echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g')
-            s3_jwt=$(echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g')
+            cred=`curl -X "GET" "${ls_url}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token}"`
+            s3_url=`echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g'`
+            s3_jwt=`echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g'`
             echo "ホスト名は: ${s3_url}"
             echo "JWTは: ${s3_jwt}"
             echo "LeanSeeksのアップロードデータを生成中"
