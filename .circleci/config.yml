@@ -74,7 +74,8 @@ jobs:
             vuln_data+=$(cat "${CIRCLE_BUILD_NUM}_ci_scan.json")
             vuln_data+="}]"
             echo "データをLeanSeeksにアップロード中"
-            curl -X 'PUT' $s3_url --data-binary "${vuln_data}"
+            echo "${vuln_data}" > vuln_data.json
+            curl -X 'PUT' $s3_url --data-binary @vuln_data.json
             echo "トリアージリクエストパラメーターの準備中"
             param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
             param+=`jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g'`"}"
