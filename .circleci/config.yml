@@ -3,7 +3,6 @@ version: 2.1
 executors:
   builder:
     machine: true
-    circleci_ip_ranges: true
   deployer:
     docker:
       - image: minepicco/cc-build-image:latest
