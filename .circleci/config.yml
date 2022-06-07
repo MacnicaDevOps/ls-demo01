@@ -71,7 +71,7 @@ jobs:
             s3_jwt=$(echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g')
             echo "LeanSeeksのアップロードデータを生成中"
             vuln_data='[{"id": "'${CIRCLE_BUILD_NUM}'_ci_scan","scanner": 0,"payload":'
-            vuln_data+=$(cat ${CIRCLE_BUILD_NUM}_ci_scan.json)
+            vuln_data+=$(cat "${CIRCLE_BUILD_NUM}_ci_scan.json")
             vuln_data+="}]"
             echo "データをLeanSeeksにアップロード中"
             curl -X 'PUT' $s3_url --data-binary "${vuln_data}"
