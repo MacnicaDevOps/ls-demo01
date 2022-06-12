@@ -70,7 +70,7 @@ jobs:
           name: Publish Image
           command: |
             docker login -u "${docker_user}" -p "${docker_pass}"
-            docker tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
+            docker tag "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
             docker push "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             docker push "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
 
@@ -99,7 +99,7 @@ jobs:
       - run:
           name: Create Kubernetes Manifest
           command: |
-            deploy_image=$imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_PREVIOUS_BUILD_NUM
+            deploy_image="${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_PREVIOUS_BUILD_NUM}"
             cat manifest_template.yaml > web.yaml
             echo "          image: "$deploy_image >> web.yaml
 
