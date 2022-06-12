@@ -87,7 +87,7 @@ jobs:
             i=1
             while true
             do
-              echo "------- 処理待ち_${i}"
+              echo "---- 処理待ち_${i}"
               curl -X 'GET' "${ls_url}/api/triage-results/${triage_id}/status" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Authorization: Bearer ${ls_token}" -H 'Content-Type: application/json' -H "$ua" -o t_result.json
               status=$(cat t_result.json | jq -r ".triage.status")
               echo "statusは「${status}」です"
