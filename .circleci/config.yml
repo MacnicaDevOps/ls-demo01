@@ -28,7 +28,7 @@ jobs:
     executor: builder
     
     environment:
-      imagename: "minepicco"
+      imagename: "macnicadevops"
       
     steps:
       - checkout
@@ -76,7 +76,7 @@ jobs:
     executor: deployer
     environment:
       comp: "low"
-      imagename: "minepicco"
+      imagename: "macnicadevops"
       
     steps:
       - checkout
