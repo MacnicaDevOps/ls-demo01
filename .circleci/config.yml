@@ -18,17 +18,10 @@ workflows:
           type: approval
           requires:
             - build_scan
-          filters:
-            branches:
-              only: master
       - deploy:
           requires:
             - hold
           context: webpage_deployment
-          filters:
-            branches:
-              only: master
-
 
 jobs:
   build_scan:
