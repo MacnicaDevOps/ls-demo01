@@ -454,7 +454,8 @@
           "MasterUserPassword": { "Ref" : "DBPassword" },
           "DBInstanceClass"   : { "Ref" : "DBClass" },
           "AllocatedStorage"  : { "Ref" : "DBAllocatedStorage" },
-          "VPCSecurityGroups" : [{ "Fn::GetAtt": [ "DBEC2SecurityGroup", "GroupId" ]}]
+          "VPCSecurityGroups" : [{ "Fn::GetAtt": [ "DBEC2SecurityGroup", "GroupId" ]}],
+          "StorageEncrypted": true
         }
       }
     },
