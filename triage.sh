@@ -22,36 +22,36 @@
             curl -X 'POST' "${ls_url}/api/triage-requests" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Vulnerability-Scan-Result-Resource-Id: ${s3_jwt}" -H "Authorization: Bearer ${ls_token}" -H 'Content-Type: application/json' -H "${ua}" -d @param.json > result.json
             triage_id=$(cat result.json | jq -r ".triage.triageId")
             cat result.json | jq
-            i=1
-            while true
-            do
-              echo "---- 処理待ち_${i}"
-              curl -X 'GET' "${ls_url}/api/triage-results/${triage_id}/status" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Authorization: Bearer ${ls_token}" -H 'Content-Type: application/json' -H "$ua" -o t_result.json
-              status=$(cat t_result.json | jq -r ".triage.status")
-              echo "statusは「${status}」です"
-              if [ "${status}" == "成功" ]; then
-                cat t_result.json | jq -r ".triage"
-                if [ $(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts") != 0 ]; then
-                  echo "緊急対処が必要な脆弱性が見つかったため、パイプラインを停止します！"
-                  echo "レベル5 緊急対処: "$(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts")"件"
-                  exit 1
-                elif [ $(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts") != 0 ]; then
-                  echo "緊急対処が推奨される脆弱性が見つかったため、パイプラインを停止します！"
-                  echo "レベル4 緊急対処推奨: "$(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts")"件"
-                  exit 2
-                elif [ $(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts") != 0 ]; then
-                  echo "対処計画が必要な脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
-                  echo "レベル3 対処計画: "$(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts")"件"
-                  exit 0
-                elif [ $(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts") != 0 ]; then
-                  echo "対処計画が推奨される脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
-                  echo "レベル2 対処計画推奨: "$(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts")"件"
-                  exit 0
-                else
-                  echo "緊急性のある脆弱性が検知されなかったため、パイプラインを継続します"
-                  exit 0
-                fi
-              fi
-              sleep 10
-              i=$((i+1))
-            done
+ #           i=1
+ #           while true
+ #           do
+ #             echo "---- 処理待ち_${i}"
+ #             curl -X 'GET' "${ls_url}/api/triage-results/${triage_id}/status" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Authorization: Bearer ${ls_token}" -H 'Content-Type: application/json' -H "$ua" -o t_result.json
+ #             status=$(cat t_result.json | jq -r ".triage.status")
+ #             echo "statusは「${status}」です"
+ #             if [ "${status}" == "成功" ]; then
+ #               cat t_result.json | jq -r ".triage"
+ #               if [ $(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts") != 0 ]; then
+ #                 echo "緊急対処が必要な脆弱性が見つかったため、パイプラインを停止します！"
+ #                 echo "レベル5 緊急対処: "$(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts")"件"
+ #                 exit 1
+ #               elif [ $(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts") != 0 ]; then
+ #                 echo "緊急対処が推奨される脆弱性が見つかったため、パイプラインを停止します！"
+ #                 echo "レベル4 緊急対処推奨: "$(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts")"件"
+ #                 exit 2
+ #               elif [ $(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts") != 0 ]; then
+ #                 echo "対処計画が必要な脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
+ #                 echo "レベル3 対処計画: "$(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts")"件"
+ #                 exit 0
+ #               elif [ $(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts") != 0 ]; then
+ #                 echo "対処計画が推奨される脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
+ #                 echo "レベル2 対処計画推奨: "$(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts")"件"
+ #                 exit 0
+ #               else
+ #                 echo "緊急性のある脆弱性が検知されなかったため、パイプラインを継続します"
+ #                 exit 0
+ #               fi
+ #             fi
+ #             sleep 10
+ #             i=$((i+1))
+ #           done
