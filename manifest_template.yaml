@@ -1,7 +1,16 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: -Namespace-
+spec: {}
+status: {}
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: web
+  namespace: -Namespace-
   labels:
     app: web
 spec:
@@ -16,6 +25,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
+  namespace: -Namespace-
   labels:
     app: web
 spec:
@@ -31,5 +41,6 @@ spec:
     spec:
       containers:
         - name: web
+          image: -Image_Name-
           ports:
           - containerPort: 80 

@@ -92,10 +92,10 @@ jobs:
       - run:
           name: Create Kubernetes Manifest
           command: |
-            deploy_image="${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_PREVIOUS_BUILD_NUM}"
-            cat manifest_template.yaml > web.yaml
-            echo "          image: "$deploy_image >> web.yaml
-
+            build_num=$((${CIRCLE_BUILD_NUM} - 1))
+            deploy_image="${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${build_num}"
+            ns="${CIRCLE_PROJECT_REPONAME,,}"
+            cat manifest_template.yaml | sed -r "s/-Image_Name-/${deploy_image}/g" | sed -r "s/-Namespace-/${ns}/" > web.yaml
       - run:
           name: deployment
           command: |
