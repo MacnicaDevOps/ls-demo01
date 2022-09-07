@@ -100,4 +100,4 @@ jobs:
           name: deployment
           command: |
             kubectl apply -f web.yaml
-            kubectl get pods
+            kubectl get pods -n "${CIRCLE_PROJECT_REPONAME,,}"
