@@ -66,7 +66,7 @@ jobs:
           name: save image to workspace
           command: |
             mkdir -p workspace
-            docker save "buildimage:temp" > "/tmp/workspace/image.tar"
+            docker save "buildimage:temp" > "workspace/image.tar"
 
       - persist_to_workspace:
           root: workspace
