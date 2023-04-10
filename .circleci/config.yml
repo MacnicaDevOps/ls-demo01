@@ -134,14 +134,19 @@ jobs:
       - run:
           name: Create Kubernetes Manifest
           command: |
-            aws ecr get-authorization-token > cred
-            awsToken=$(cat cred | jq -r ".authorizationData[].authorizationToken")
-            awsEndpoint=$(cat cred | jq -r ".authorizationData[].proxyEndpoint")
-            docker login -u "AWS" -p "${awsToken}" ${awsEndpoint}
             build_num=$((${CIRCLE_BUILD_NUM} - 1))
             deploy_image="${awsEndpoint}/${CIRCLE_PROJECT_REPONAME,,}:${build_num}"
             ns="${CIRCLE_PROJECT_REPONAME,,}"
             cat manifest_template.yaml | sed -e "s@-Image_Name-@${deploy_image}@g" | sed -e "s@-Namespace-@${ns}@g" > web.yaml
+
+      - run:
+          name: Login to aws
+          command: |
+            aws ecr get-authorization-token > cred
+            awsToken=$(cat cred | jq -r ".authorizationData[].authorizationToken")
+            awsEndpoint=$(cat cred | jq -r ".authorizationData[].proxyEndpoint")
+            docker login -u "AWS" -p "${awsToken}" ${awsEndpoint}
+
       - run:
           name: deployment
           command: |
