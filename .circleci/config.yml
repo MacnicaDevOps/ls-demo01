@@ -14,6 +14,10 @@ workflows:
     jobs:
       - build_scan:
           context: webpage_deployment
+      - push:
+          context: webpage_deployment
+          requires:
+            - build_scan
       - hold:
           type: approval
           requires:
@@ -58,7 +62,25 @@ jobs:
           command: |
             chmod +x triage.sh
             ./triage.sh
+      - run:
+          name: prepare artifact
+          command: |
+            mkdir /tmp/artifacts
+            docker save "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > "/tmp/artifacts/image.tar"
+      - store_artifacts:
+          path: image.tar
+          destination: image
+      - store_artifacts:
+          path: /tmp/artifacts
 
+  push:
+    executor: deployer
+    environment:
+      imagename: "macnicadevops"
+      
+    steps:
+      - checkout
+      - setup_remote_docker
       - run:
           name: Publish Image
           command: |
@@ -66,11 +88,6 @@ jobs:
             docker tag "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
             docker push "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             docker push "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
-
-      - run:
-          name: Slack Notification
-          command: |
-            curl -X POST -d 'payload={"attachments": [{"text": "ビルドのスキャンが完了しました！'$CIRCLE_BUILD_URL'"}]}' $wh_url
 
   deploy:
     executor: deployer

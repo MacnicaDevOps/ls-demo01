@@ -1,20 +1,15 @@
 #!/bin/bash
 
-            app_name="CCI_Build_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
-            app_priority="H"
-            curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" | jq -r '[ .[].entityInfo ]' > "ci_scan.json"
+
             echo "------- LeanSeeksのアップロードURLを情報取得中"
             cred=`curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token_demo}" -H "${ua}"`
             s3_url=`echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g'`
             s3_jwt=`echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g'`
-            echo "------- LeanSeeksのアップロードデータを生成中"
-            vuln_data='[{"id": "ci_scan.json","scanner": 0,"payload":'
-            vuln_data+=$(cat "ci_scan.json")
-            vuln_data+="}]"
+
             echo "------- データをLeanSeeksにアップロード中"
-            echo "${vuln_data}" > vuln_data.json
             curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
             echo "------- トリアージリクエストパラメーターの準備中"
+
             param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
             param+=`jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g'`"}"
             echo $param | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' | sed -e 's/\r//g'> "param.json"
