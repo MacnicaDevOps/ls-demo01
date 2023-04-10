@@ -100,8 +100,9 @@ jobs:
           name: Publish Image
           command: |
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
-            docker tag "buildimage:temp" "${awsEndpoint}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
-            docker push "${awsEndpoint}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
+            repo=$(echo ${awsEndpoint} | cut -d / -f 3)
+            docker tag "buildimage:temp" "${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
+            docker push "${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
 
   deploy:
     executor: deployer
@@ -132,7 +133,8 @@ jobs:
           name: Create Kubernetes Manifest
           command: |
             build_num=$((${CIRCLE_BUILD_NUM} - 1))
-            deploy_image="${awsEndpoint}/${CIRCLE_PROJECT_REPONAME,,}:${build_num}"
+            repo=$(echo ${awsEndpoint} | cut -d / -f 3)
+            deploy_image="${repo}/${CIRCLE_PROJECT_REPONAME,,}:${build_num}"
             ns="${CIRCLE_PROJECT_REPONAME,,}"
             cat manifest_template.yaml | sed -e "s@-Image_Name-@${deploy_image}@g" | sed -e "s@-Namespace-@${ns}@g" > web.yaml
 
@@ -140,7 +142,7 @@ jobs:
           name: Login to aws
           command: |
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
-            
+
       - run:
           name: deployment
           command: |
