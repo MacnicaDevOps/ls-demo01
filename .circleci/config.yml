@@ -6,9 +6,9 @@ executors:
   deployer:
     docker:
       - image: minepicco/cc-build-image:latest
+  working_directory: /tmp
 
 workflows:
-  version: 2.
   
   build-deploy:
     jobs:
@@ -41,12 +41,12 @@ jobs:
           name: Build Image
           command: |
             docker login -u $docker_user -p $docker_pass
-            docker build --tag "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" .
+            docker build --tag "buildimage:temp" .
 
       - run:
           name: "simple test"
           command: |
-            docker run --rm --name web -p 80:80 -d "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
+            docker run --rm --name web -p 80:80 -d "buildimage:temp"
             sleep 1 && curl http://localhost
             docker stop web
 
@@ -55,7 +55,7 @@ jobs:
           command: |
             curl -k -u "${pc_user}:${pc_pass}" --output twistcli "${pc_url}/api/v1/util/twistcli" 
             chmod a+x twistcli
-            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" --details
+            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "buildimage:temp" --details
 
       - run:
           name: "Triage vulnerabilities"
@@ -63,16 +63,15 @@ jobs:
             chmod +x triage.sh
             ./triage.sh
       - run:
-          name: prepare artifact
+          name: save image to workspace
           command: |
-            mkdir /tmp/artifacts
-            docker save "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > "/tmp/artifacts/image.tar"
-      - store_artifacts:
-          path: image.tar
-          destination: image
-      - store_artifacts:
-          path: /tmp/artifacts
+            mkdir -p workspace
+            docker save "buildimage:temp" > "/tmp/workspace/image.tar"
 
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - image.tar
   push:
     executor: deployer
     environment:
@@ -81,13 +80,20 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+
+      - run:
+          name: load image
+          command: |
+            docker load -i "/tmp/workspace/image.tar"
+
       - run:
           name: Publish Image
           command: |
             docker login -u "${docker_user}" -p "${docker_pass}"
-            docker tag "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
+            docker tag "buildimage:temp" "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             docker push "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
-            docker push "${imagename}/${CIRCLE_PROJECT_REPONAME,,}:latest"
 
   deploy:
     executor: deployer
