@@ -134,7 +134,7 @@ jobs:
       - run:
           name: Create Kubernetes Manifest
           command: |
-            aws ecr get-authorization-token | jq > cred
+            aws ecr get-authorization-token > cred
             awsToken=$(cat cred | jq -r ".authorizationData[].authorizationToken")
             awsEndpoint=$(cat cred | jq -r ".authorizationData[].proxyEndpoint")
             docker login -u "AWS" -p "${awsToken}" ${awsEndpoint}
