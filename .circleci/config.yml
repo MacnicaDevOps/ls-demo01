@@ -99,10 +99,7 @@ jobs:
       - run:
           name: Publish Image
           command: |
-            aws ecr get-authorization-token > cred
-            awsToken=$(cat cred | jq -r ".authorizationData[].authorizationToken")
-            awsEndpoint=$(cat cred | jq -r ".authorizationData[].proxyEndpoint")
-            docker login -u "AWS" -p "${awsToken}" ${awsEndpoint}
+            aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
             docker tag "buildimage:temp" "${awsEndpoint}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             docker push "${awsEndpoint}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
 
@@ -142,11 +139,8 @@ jobs:
       - run:
           name: Login to aws
           command: |
-            aws ecr get-authorization-token > cred
-            awsToken=$(cat cred | jq -r ".authorizationData[].authorizationToken")
-            awsEndpoint=$(cat cred | jq -r ".authorizationData[].proxyEndpoint")
-            docker login -u "AWS" -p "${awsToken}" ${awsEndpoint}
-
+            aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
+            
       - run:
           name: deployment
           command: |
