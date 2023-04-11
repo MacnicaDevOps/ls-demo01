@@ -37,13 +37,19 @@
                 elif [ $(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts") != 0 ]; then
                   echo "対処計画が必要な脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
                   echo "レベル3 対処計画: "$(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts")"件"
+                  rm -rf work
+                  rm -f vuln_data.json
                   exit 0
                 elif [ $(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts") != 0 ]; then
                   echo "対処計画が推奨される脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
                   echo "レベル2 対処計画推奨: "$(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts")"件"
+                  rm -rf work
+                  rm -f vuln_data.json
                   exit 0
                 else
                   echo "緊急性のある脆弱性が検知されなかったため、パイプラインを継続します"
+                  rm -rf work
+                  rm -f vuln_data.json
                   exit 0
                 fi
               fi

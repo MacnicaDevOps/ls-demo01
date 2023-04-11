@@ -57,11 +57,11 @@ jobs:
             chmod a+x twistcli
             sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "buildimage:temp" --details
 
-#      - run:
-#          name: "Triage vulnerabilities"
-#          command: |
-#            chmod +x triage.sh
-#            ./triage.sh
+      - run:
+          name: "Triage vulnerabilities"
+          command: |
+            ./getPrismaData.sh
+            ./triage.sh
       - run:
           name: save image to workspace
           command: |
@@ -132,7 +132,7 @@ jobs:
       - run:
           name: Create Kubernetes Manifest
           command: |
-            build_num=$((${CIRCLE_BUILD_NUM} - 1))
+            build_num=$((${CIRCLE_BUILD_NUM} - 2))
             repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             deploy_image="${repo}/${CIRCLE_PROJECT_REPONAME,,}:${build_num}"
             ns="${CIRCLE_PROJECT_REPONAME,,}"
@@ -142,6 +142,12 @@ jobs:
           name: Login to aws
           command: |
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
+
+      - run:
+          name: Triage ECR vulnerability scan result with LeanSeeks
+          command: |
+            ./getECRData.sh
+            ./triage.sh
 
       - run:
           name: deployment

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-            app_name="PR_CCI_Build_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
+            app_name="PRISMA_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
             app_priority="H"
             curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=${imagename}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" | jq -r '[ .[].entityInfo ]' > "ci_scan.json"
 
