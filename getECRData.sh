@@ -1,7 +1,7 @@
 #!/bin/bash
 
-app_name="ECR_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
-app_priority="H"
+echo "app_name=ECR_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}">env.txt
+echo 'app_priority="H"'>>env.txt
 
 echo "------- ECRから脆弱性データを取得中"
 mkdir -p work

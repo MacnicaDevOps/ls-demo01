@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source env.txt
 
             echo "------- LeanSeeksのアップロードURLを情報取得中"
             cred=`curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token_demo}" -H "${ua}"`
