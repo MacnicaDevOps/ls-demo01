@@ -106,7 +106,7 @@ jobs:
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > /tmp/workspace/env.txt
 
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: workspace
           paths:
             - env.txt
 
