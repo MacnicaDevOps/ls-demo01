@@ -72,7 +72,7 @@ jobs:
           root: workspace
           paths:
             - image.tar
-            
+
   push:
     executor: deployer
     environment:
@@ -107,7 +107,7 @@ jobs:
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > /tmp/workspace/env.txt
 
       - persist_to_workspace:
-          root: workspace
+          root: /tmp/workspace
           paths:
             - env.txt
 
