@@ -104,10 +104,11 @@ jobs:
             repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             docker tag "buildimage:temp" "${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             docker push "${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
-            echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > /tmp/workspace/env.txt
+            mkdir -p workspace
+            echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > workspace/env.txt
 
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: workspace
           paths:
             - env.txt
 
@@ -121,7 +122,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - attach_workspace:
-          at: /tmp/workspace
+          at: /root/project/workspace
 
       - run:
           name: Configure gcloud cli
