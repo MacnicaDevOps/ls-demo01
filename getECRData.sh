@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source workspace/env.txt
+source /tmp/workspace/env.txt
 
 echo "デバッグ用"
 ls -lah workspace/
-cat workspace/env.txt
+cat /tmp/workspace/env.txt
 
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
