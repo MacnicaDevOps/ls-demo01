@@ -2,25 +2,33 @@
 
 source env.txt
 
-            echo "------- LeanSeeksのアップロードURLを情報取得中"
-            cred=`curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token_demo}" -H "${ua}"`
-            s3_url=`echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g'`
-            s3_jwt=`echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g'`
+# LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
+echo "------- LeanSeeksのアップロードURLを情報取得中"
+cred=$(curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token_demo}" -H "${ua}")
+s3_url=$(echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g')
+s3_jwt=$(echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g')
 
-            echo "------- データをLeanSeeksにアップロード中"
-            curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
-            echo "------- トリアージリクエストパラメーターの準備中"
+# データをLeanSeeksにアップロードする
+echo "------- データをLeanSeeksにアップロード中"
+curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
 
-            param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
-            param+=`jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g'`"}"
-            echo $param | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' | sed -e 's/\r//g'> "param.json"
-            echo "------- トリアージリクエスト実行中"
-            curl -X 'POST' "${ls_url_demo}/api/triage-requests" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Vulnerability-Scan-Result-Resource-Id: ${s3_jwt}" -H "Authorization: Bearer ${ls_token_demo}" -H 'Content-Type: application/json' -H "${ua}" -d @param.json > result.json
-            triage_id=$(cat result.json | jq -r ".triage.triageId")
-            cat result.json | jq
-            i=1
-            while true
-            do
+# トリアージ用のパラメーターをparams.csvからmapping.jqを用いて生成する
+echo "------- トリアージリクエストパラメーターの準備中"
+
+param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
+param+=`jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g'`"}"
+echo $param | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' | sed -e 's/\r//g'> "param.json"
+
+# トリアージリクエストを実行する
+echo "------- トリアージリクエスト実行中"
+curl -X 'POST' "${ls_url_demo}/api/triage-requests" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Vulnerability-Scan-Result-Resource-Id: ${s3_jwt}" -H "Authorization: Bearer ${ls_token_demo}" -H 'Content-Type: application/json' -H "${ua}" -d @param.json > result.json
+triage_id=$(cat result.json | jq -r ".triage.triageId")
+cat result.json | jq
+
+# トリアージ結果を10秒間隔で取得する。成功するまで繰り返す。
+i=1
+while true
+  do
               echo "---- 処理待ち_${i}"
               curl -X 'GET' "${ls_url_demo}/api/triage-results/${triage_id}/status" -H 'accept: application/json' -H 'Accept-Language: ja' -H "Authorization: Bearer ${ls_token_demo}" -H 'Content-Type: application/json' -H "$ua" -o t_result.json
               status=$(cat t_result.json | jq -r ".triage.status")
@@ -56,4 +64,4 @@ source env.txt
               fi
               sleep 10
               i=$((i+1))
-            done
+  done
