@@ -67,11 +67,13 @@ jobs:
           command: |
             mkdir -p workspace
             docker save "buildimage:temp" > "workspace/image.tar"
+            touch "workspace/env.txt"
 
       - persist_to_workspace:
           root: workspace
           paths:
             - image.tar
+            - env.txt
   push:
     executor: deployer
     environment:
