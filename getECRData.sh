@@ -7,6 +7,7 @@ echo 'app_priority="H"'>>env.txt
 # ECRから脆弱性スキャンのデータをAWSCLIで取得して、CVE IDとセベリティをフィルタして保存する
 echo "------- ECRから脆弱性データを取得中"
 mkdir -p work
+build_num=$((${CIRCLE_BUILD_NUM} - 2))
 aws ecr describe-image-scan-findings --repository-name ${CIRCLE_PROJECT_REPONAME,,} --image-id imageTag=${build_num} | jq -c ".imageScanFindings.findings[] |[ .name, .severity ]" > work/ecr_vlun.txt
 
 # CVE IDとセベリティをLeanSeeksのフォーマットに割り当てる
