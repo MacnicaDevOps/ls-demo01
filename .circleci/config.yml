@@ -72,6 +72,7 @@ jobs:
           root: workspace
           paths:
             - image.tar
+            
   push:
     executor: deployer
     environment:
