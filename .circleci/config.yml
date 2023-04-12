@@ -63,10 +63,11 @@ jobs:
 #            ./getPrismaData.sh
 #            ./triage.sh
       - run:
-          name: save image to workspace
+          name: save image and image name to workspace
           command: |
             mkdir -p workspace
             docker save "buildimage:temp" > "workspace/image.tar"
+            repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > workspace/env.txt
 
       - persist_to_workspace:
@@ -104,7 +105,6 @@ jobs:
           command: |
             source /tmp/workspace/env.txt
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
-            repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             docker tag "buildimage:temp" "${image}"
             docker push "${image}"
 
