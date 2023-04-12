@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source env.txt
+source work/env.txt
+source param.txt
 
 # LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
 echo "------- LeanSeeksのアップロードURLを情報取得中"

@@ -1,8 +1,10 @@
 #!/bin/bash
 
+source work/env.txt
+
 # LeanSeeksの環境変数を指定してファイルに書き出す
-echo "app_name=PRISMA_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}">env.txt
-echo 'app_priority="H"'>>env.txt
+echo "app_name=PRISMA_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}">param.txt
+echo 'app_priority="H"'>>param.txt
 
 #Prisma Cloudに対象イメージの脆弱性情報を問い合わせる
 curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=buildimage:temp" | jq -r '[ .[].entityInfo ]' > "ci_scan.json"
