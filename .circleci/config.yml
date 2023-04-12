@@ -67,13 +67,11 @@ jobs:
           command: |
             mkdir -p workspace
             docker save "buildimage:temp" > "workspace/image.tar"
-            touch "workspace/env.txt"
 
       - persist_to_workspace:
           root: workspace
           paths:
             - image.tar
-            - env.txt
   push:
     executor: deployer
     environment:
@@ -106,6 +104,11 @@ jobs:
             docker tag "buildimage:temp" "${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             docker push "${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}"
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > /tmp/workspace/env.txt
+
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - env.txt
 
   deploy:
     executor: deployer
