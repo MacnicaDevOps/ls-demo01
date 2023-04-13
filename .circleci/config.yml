@@ -57,11 +57,11 @@ jobs:
             chmod a+x twistcli
             sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "buildimage:temp" --details
 
-#      - run:
-#          name: "Triage vulnerabilities"
-#          command: |
-#            ./getPrismaData.sh
-#            ./triage.sh
+      - run:
+          name: "Triage vulnerabilities"
+          command: |
+            ./getPrismaData.sh
+            ./triage.sh
       - run:
           name: save image and image name to workspace
           command: |

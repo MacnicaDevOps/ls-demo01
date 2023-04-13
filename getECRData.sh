@@ -10,6 +10,7 @@ cat /tmp/workspace/env.txt
 # LeanSeeksの環境変数を指定してファイルに書き出す
 echo "app_name=ECR_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}">param.txt
 echo 'app_priority="H"'>>param.txt
+echo "scanner=255">>param.txt
 
 # ECRから脆弱性スキャンのデータをAWSCLIで取得して、CVE IDとセベリティをフィルタして保存する
 echo "------- ECRから脆弱性データを取得中"
