@@ -58,17 +58,17 @@ jobs:
             sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "buildimage:temp" --details
 
       - run:
-          name: "Triage vulnerabilities"
-          command: |
-            ./getPrismaData.sh
-            ./triage.sh
-      - run:
           name: save image and image name to workspace
           command: |
             mkdir -p workspace
             docker save "buildimage:temp" > "workspace/image.tar"
             repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > workspace/env.txt
+      - run:
+          name: "Triage vulnerabilities"
+          command: |
+            ./getPrismaData.sh
+            ./triage.sh
 
       - persist_to_workspace:
           root: workspace
