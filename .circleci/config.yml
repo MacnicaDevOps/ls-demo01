@@ -64,17 +64,21 @@ jobs:
             docker save "buildimage:temp" > "workspace/image.tar"
             repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > workspace/env.txt
-      - run:
-          name: "Triage vulnerabilities"
-          command: |
-            ./getPrismaData.sh
-            ./triage.sh
 
       - persist_to_workspace:
           root: workspace
           paths:
             - image.tar
             - env.txt
+
+      - attach_workspace:
+          at: /tmp/workspace
+
+      - run:
+          name: "Triage vulnerabilities"
+          command: |
+            ./getPrismaData.sh
+            ./triage.sh
 
   push:
     executor: deployer

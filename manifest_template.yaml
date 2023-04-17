@@ -3,8 +3,6 @@ kind: Namespace
 metadata:
   creationTimestamp: null
   name: -Namespace-
-spec: {}
-status: {}
 ---
 apiVersion: v1
 kind: Service
