@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /tmp/workspace/env.txt
+#source /tmp/workspace/env.txt
 source param.txt
 
 # LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
