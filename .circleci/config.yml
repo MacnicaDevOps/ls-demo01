@@ -74,11 +74,11 @@ jobs:
 #      - attach_workspace:
 #          at: /tmp/workspace
 
-      - run:
-          name: "Triage vulnerabilities"
-          command: |
-            chmod +x triage_2.sh
-            ./triage_2.sh
+#      - run:
+#          name: "Triage vulnerabilities"
+#          command: |
+#            chmod +x triage_2.sh
+#            ./triage_2.sh
 
   push:
     executor: deployer
