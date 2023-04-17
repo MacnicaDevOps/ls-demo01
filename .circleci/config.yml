@@ -71,8 +71,8 @@ jobs:
             - image.tar
             - env.txt
 
-      - attach_workspace:
-          at: /tmp/workspace
+#      - attach_workspace:
+#          at: /tmp/workspace
 
       - run:
           name: "Triage vulnerabilities"

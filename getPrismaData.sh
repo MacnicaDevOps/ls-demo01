@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source /tmp/workspace/env.txt
+#source /tmp/workspace/env.txt
+image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
 echo "app_name=PRISMA_SCAN_${image}">param.txt
