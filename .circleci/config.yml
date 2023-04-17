@@ -77,8 +77,7 @@ jobs:
       - run:
           name: "Triage vulnerabilities"
           command: |
-            ./getPrismaData.sh
-            ./triage.sh
+            ./triage_2.sh
 
   push:
     executor: deployer
