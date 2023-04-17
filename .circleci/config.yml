@@ -6,7 +6,7 @@ executors:
   deployer:
     docker:
       - image: minepicco/cc-build-image:latest
-  working_directory: /tmp
+#  working_directory: /tmp
 
 workflows:
   
@@ -60,13 +60,13 @@ jobs:
       - run:
           name: save image and image name to workspace
           command: |
-            mkdir -p workspace
-            docker save "buildimage:temp" > "workspace/image.tar"
+            mkdir -p /tmp/workspace
+            docker save "buildimage:temp" > "/tmp/workspace/image.tar"
             repo=$(echo ${awsEndpoint} | cut -d / -f 3)
-            echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > workspace/env.txt
+            echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > /tmp/workspace/env.txt
 
       - persist_to_workspace:
-          root: workspace
+          root: /tmp/workspace
           paths:
             - image.tar
             - env.txt
