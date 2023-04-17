@@ -11,6 +11,7 @@ s3_jwt=$(echo "${cred}" | jq -r ".uploadDestination.key")
 
 # データをLeanSeeksにアップロードする
 echo "------- データをLeanSeeksにアップロード中"
+ls -lah vuln_data.json
 curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
 
 # トリアージ用のパラメーターをparams.csvからmapping.jqを用いて生成する
@@ -19,6 +20,8 @@ echo "------- トリアージリクエストパラメーターの準備中"
 param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
 param+=`jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g'`"}"
 echo $param | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' | sed -e 's/\r//g'> "param.json"
+
+cat param.json | jq
 
 # トリアージリクエストを実行する
 echo "------- トリアージリクエスト実行中"
