@@ -6,8 +6,8 @@ source param.txt
 # LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
 echo "------- LeanSeeksのアップロードURLを情報取得中"
 cred=$(curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token_demo}" -H "${ua}")
-s3_url=$(echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g')
-s3_jwt=$(echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g')
+s3_url=$(echo "${cred}" | jq -r ".uploadDestination.url")
+s3_jwt=$(echo "${cred}" | jq -r ".uploadDestination.key")
 
 # データをLeanSeeksにアップロードする
 echo "------- データをLeanSeeksにアップロード中"

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #source /tmp/workspace/env.txt
+repo=$(echo ${awsEndpoint} | cut -d / -f 3)
 image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
