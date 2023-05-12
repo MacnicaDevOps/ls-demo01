@@ -54,6 +54,9 @@
                   echo "緊急性のある脆弱性が検知されなかったため、パイプラインを継続します"
                   exit 0
                 fi
+              elif [ "${status}" == null ]; then
+                echo "トリアージ処理でエラーが発生したため中止します"
+                exit 1
               fi
               sleep 10
               i=$((i+1))

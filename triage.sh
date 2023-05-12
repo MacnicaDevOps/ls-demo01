@@ -65,6 +65,10 @@ while true
                   rm -f vuln_data.json
                   exit 0
                 fi
+              elif [ "${status}" == null ]; then
+                echo "トリアージリクエストが失敗しました。"
+                cat t_result.json | jq
+                exit 1
               fi
               sleep 10
               i=$((i+1))
