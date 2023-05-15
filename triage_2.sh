@@ -9,7 +9,7 @@
             s3_url=`echo "${cred}" | jq .uploadDestination.url | sed -e 's/\"//g'`
             s3_jwt=`echo "${cred}" | jq .uploadDestination.key | sed -e 's/\"//g'`
             echo "------- LeanSeeksのアップロードデータを生成中"
-            cat ci_scan.json | jq
+            #cat ci_scan.json | jq
             vuln_data='[{"id": "ci_scan.json","scanner": 0,"payload":'
             vuln_data+=$(cat "ci_scan.json")
             vuln_data+="}]"
