@@ -27,33 +27,34 @@ aws ecr describe-image-scan-findings --repository-name ${CIRCLE_PROJECT_REPONAME
 echo "------- ECRの脆弱性データをLeanSeeksフォーマットに変換中"
 it=1
 number=$(cat work/ecr_vlun.txt | grep -c "CVE-")
+
 ls_data='['
 while read row; do
   cveId=$(echo ${row} | cut -d '"' -f 2)
   severity=$(echo ${row} | cut -d '"' -f 4)
-  ls_data+='{
-    "cveId": "'"${cveId}"'",
-    "packageName": "",
-    "packageVersion": "",
-    "severity": "'$(echo "${severity}" | tr "[A-Z]" "[a-z]")'",
-    "cvssScore": "",
-    "title": "",
-    "description": "",
-    "link": "",
-    "AV": "",
-    "AC": "",
-    "C": "",
-    "I": "",
-    "A": "",
-    "hasFix": "",
-    "exploit": "",
-    "publicExploits": "",
-    "published": "",
-    "updated": "",
-    "type": ""'
+  ls_data+="{
+    \"cveId\": \"${cveId}\",
+    \"packageName\": \"\",
+    \"packageVersion\": \"\",
+    \"severity\": \"$(echo "${severity}" | tr "[A-Z]" "[a-z]")\",
+    \"cvssScore\": \"\",
+    \"title\": \"\",
+    \"description\": \"\",
+    \"link\": \"\",
+    \"AV\": \"\",
+    \"AC\": \"\",
+    \"C\": \"\",
+    \"I\": \"\",
+    \"A\": \"\",
+    \"hasFix\": \"\",
+    \"exploit\": \"\",
+    \"publicExploits\": \"\",
+    \"published\": \"\",
+    \"updated\": \"\",
+    \"type\": \"\""
   if [ ${it} -eq ${number} ]; then
     ls_data+="}]"
-    echo ${ls_data} > "ecr_vlun_LS.json"
+    echo ${ls_data} | jq > "ecr_vlun_LS.json"
     #rm -r "${dirname}/"
   else
     ls_data+="},"
