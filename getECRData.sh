@@ -3,12 +3,12 @@
 source /tmp/workspace/env.txt
 
 echo "デバッグ用"
-ls -lah workspace/
 cat /tmp/workspace/env.txt
 
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
-echo "app_name=ECR_SCAN_${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}" > param.txt
+build_num=$(echo ${image} | cut -d ':' -f 2)
+echo "app_name=ECR_SCAN_${build_num}" > param.txt
 echo 'app_priority="H"' >> param.txt
 echo "scanner=255" >> param.txt
 
@@ -18,7 +18,7 @@ cat param.txt
 # ECRから脆弱性スキャンのデータをAWSCLIで取得して、CVE IDとセベリティをフィルタして保存する
 echo "------- ECRから脆弱性データを取得中"
 mkdir -p work
-build_num=$(echo ${image} | cut -d ':' -f 2)
+#build_num=$(echo ${image} | cut -d ':' -f 2)
 aws ecr describe-image-scan-findings --repository-name ${CIRCLE_PROJECT_REPONAME,,} --image-id imageTag=${build_num} | jq -c ".imageScanFindings.findings[] |[ .name, .severity ]" > work/ecr_vlun.txt
 
 # CVE IDとセベリティをLeanSeeksのフォーマットに割り当てる
