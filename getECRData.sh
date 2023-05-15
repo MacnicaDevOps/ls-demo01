@@ -50,11 +50,11 @@ while read row; do
     "updated": "",
     "type": ""'
   if [ ${it} -eq ${number} ]; then
-    vuln_data+="}]"
+    ls_data+="}]"
     echo ${ls_data} | jq > "work/ecr_vlun_LS.json"
     #rm -r "${dirname}/"
   else
-    vuln_data+="},"
+    ls_data+="},"
   fi
   echo "${it}/${number}"
   it=$((it+1))
