@@ -54,7 +54,11 @@ while read row; do
     \"type\": \"\""
   if [ ${it} -eq ${number} ]; then
     ls_data+="}]"
-    echo ${ls_data} | jq > "ecr_vlun_LS.json"
+    echo ${ls_data}  > "ecr_vlun_LS.json"
+    
+    echo "デバッグ ecr_vlun_LS.jsonの中身"
+    cat ecr_vlun_LS.json
+    
     #rm -r "${dirname}/"
   else
     ls_data+="},"
