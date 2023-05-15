@@ -20,4 +20,5 @@ vuln_data+=$(cat "ci_scan.json")
 vuln_data+="}]"
 echo "${vuln_data}" > vuln_data.json
 
+echo "デバッグ : LeanSeeksのアップロードデータのCVEカウント"
 cat vuln_data.json | jq | grep -c "CVE-"
