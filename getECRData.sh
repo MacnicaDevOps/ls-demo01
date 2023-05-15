@@ -15,6 +15,8 @@ echo "scanner=255" >> param.txt
 echo "デバッグ用"
 cat param.txt
 
+source param.txt
+
 # ECRから脆弱性スキャンのデータをAWSCLIで取得して、CVE IDとセベリティをフィルタして保存する
 echo "------- ECRから脆弱性データを取得中"
 mkdir -p work
@@ -51,7 +53,7 @@ while read row; do
     "type": ""'
   if [ ${it} -eq ${number} ]; then
     ls_data+="}]"
-    echo ${ls_data} | jq > "work/ecr_vlun_LS.json"
+    echo ${ls_data} > "ecr_vlun_LS.json"
     #rm -r "${dirname}/"
   else
     ls_data+="},"
@@ -64,6 +66,6 @@ done < work/ecr_vlun.txt
 # LeanSeeks用のアップロードデータを生成する
 echo "------- LeanSeeksのアップロードデータを生成中"
 vuln_data='[{"id": "ci_scan.json","scanner": 255,"payload":'
-            vuln_data+=$(cat "work/ecr_vlun_LS.json")
+            vuln_data+=$(cat "ecr_vlun_LS.json")
             vuln_data+="}]"
             echo "${vuln_data}" | jq > vuln_data.json
