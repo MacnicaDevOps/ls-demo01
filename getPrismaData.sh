@@ -11,7 +11,7 @@ echo "app_priority=\"H\"" >> param.txt
 echo "scanner=0" >> param.txt
 
 #Prisma Cloudに対象イメージの脆弱性情報を問い合わせる
-curl -k -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=buildimage:temp" | jq -r '[ .[].entityInfo ]' > "ci_scan.json"
+curl -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/api/v1/scans?search=buildimage:temp" | jq -r '[ .[].entityInfo ]' > "ci_scan.json"
 
 # LeanSeeks用のアップロードデータを生成する
 echo "------- LeanSeeksのアップロードデータを生成中"
