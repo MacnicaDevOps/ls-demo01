@@ -7,7 +7,7 @@ image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}
 # LeanSeeksの環境変数を指定してファイルに書き出す
 echo "image=\"${image}\"" > param.txt
 echo "app_name=\"PRISMA_SCAN_${CIRCLE_BUILD_NUM}\"" > param.txt
-echo 'app_priority="H"' >> param.txt
+echo "app_priority=\"H\"" >> param.txt
 echo "scanner=0" >> param.txt
 
 #Prisma Cloudに対象イメージの脆弱性情報を問い合わせる

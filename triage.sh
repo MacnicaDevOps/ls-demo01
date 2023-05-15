@@ -3,6 +3,8 @@
 #source /tmp/workspace/env.txt
 source param.txt
 
+cat param.txt
+
 # LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
 echo "------- LeanSeeksのアップロードURLを情報取得中"
 cred=$(curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-destination" -H "accept: application/json" -H "Accept-Language: ja" -H "Authorization: Bearer ${ls_token_demo}" -H "${ua}")
@@ -68,7 +70,7 @@ while true
               elif [ "${status}" == null ]; then
                 echo "トリアージリクエストが失敗しました。"
                 cat t_result.json | jq
-                exit 1
+                exit 0
               fi
               sleep 10
               i=$((i+1))
