@@ -23,9 +23,12 @@ echo "------- トリアージリクエストパラメーターの準備中"
 echo "デバッグ"
 echo "App_Name: ${app_name}"
 echo "App_Priority: ${app_priority}"
+echo "Scanner: ${scanner}"
 
+
+cat mapping.jq | sed -e "s/-SCANNER-/${scanner}/g" > mapping-rp.jq
 param="{ \"application_name\": \"${app_name}\", \"importance\": \"${app_priority}\", \"is_template\": false, \"pods\":"
-param+=$(jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g')"}"
+param+=$(jq -R -s -f mapping-rp.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g')"}"
 echo ${param} | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' > "param.json"
 
 echo "デバッグ"

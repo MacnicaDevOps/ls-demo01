@@ -8,6 +8,6 @@ split("\n")|map(split(","))|
         "confidentiality_level":.[5],
         "availability_level":.[6],
         "integrity_level":.[7],
-        "scanner": 255,
+        "scanner": -SCANNER-,
         "scan_result_id":.[8],
 })
