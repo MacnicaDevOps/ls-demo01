@@ -41,12 +41,12 @@ jobs:
           name: Build Image
           command: |
             docker login -u $docker_user -p $docker_pass
-            docker build --tag "buildimage:temp" .
+            docker build --tag "buildimage:${CIRCLE_BUILD_NUM}" .
 
       - run:
           name: "simple test"
           command: |
-            docker run --rm --name web -p 80:80 -d "buildimage:temp"
+            docker run --rm --name web -p 80:80 -d "buildimage:${CIRCLE_BUILD_NUM}"
             sleep 1 && curl http://localhost
             docker stop web
 
@@ -55,13 +55,13 @@ jobs:
           command: |
             curl -k -u "${pc_user}:${pc_pass}" --output twistcli "${pc_url}/api/v1/util/twistcli" 
             chmod a+x twistcli
-            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "buildimage:temp" --details
+            sudo ./twistcli images scan --address "${pc_url}" -u "${pc_user}" -p "${pc_pass}" "buildimage:${CIRCLE_BUILD_NUM}" --details
 
       - run:
           name: save image and image name to workspace
           command: |
             mkdir -p /tmp/workspace
-            docker save "buildimage:temp" > "/tmp/workspace/image.tar"
+            docker save "buildimage:${CIRCLE_BUILD_NUM}" > "/tmp/workspace/image.tar"
             repo=$(echo ${awsEndpoint} | cut -d / -f 3)
             echo "image=${repo}/${CIRCLE_PROJECT_REPONAME,,}:${CIRCLE_BUILD_NUM}" > /tmp/workspace/env.txt
 
@@ -107,8 +107,9 @@ jobs:
           name: Publish Image
           command: |
             source /tmp/workspace/env.txt
+            build_num=$(echo ${image} | cut -d ':' -f 2)
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
-            docker tag "buildimage:temp" "${image}"
+            docker tag "buildimage:${build_num}" "${image}"
             docker push "${image}"
 
   deploy:

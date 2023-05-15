@@ -15,7 +15,11 @@ s3_jwt=$(echo "${cred}" | jq -r ".uploadDestination.key")
 
 # データをLeanSeeksにアップロードする
 echo "------- データをLeanSeeksにアップロード中"
+echo "デバッグ : LeanSeeksのアップロードデータのCVEカウント"
+cat vuln_data.json | jq | grep -c "CVE-"
 ls -lah vuln_data.json
+
+
 curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
 
 # トリアージ用のパラメーターをparams.csvからmapping.jqを用いて生成する
