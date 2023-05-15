@@ -19,3 +19,5 @@ vuln_data='[{"id": "ci_scan.json","scanner": 0,"payload":'
 vuln_data+=$(cat "ci_scan.json")
 vuln_data+="}]"
 echo "${vuln_data}" > vuln_data.json
+
+cat vuln_data.json | jq | grep -c "CVE-"
