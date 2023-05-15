@@ -15,7 +15,7 @@
             vuln_data+="}]"
             echo "------- データをLeanSeeksにアップロード中"
             echo "${vuln_data}" > vuln_data.json
-            cat vuln_data.json | jq
+            #cat vuln_data.json | jq
             curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
             echo "------- トリアージリクエストパラメーターの準備中"
             param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
