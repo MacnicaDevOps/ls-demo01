@@ -20,8 +20,11 @@ curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
 
 # トリアージ用のパラメーターをparams.csvからmapping.jqを用いて生成する
 echo "------- トリアージリクエストパラメーターの準備中"
+echo "デバッグ"
+echo "App_Name: ${app_name}"
+echo "App_Priority: ${app_priority}"
 
-param='{"application_name":"'${app_name}'","importance":"'${app_priority}'","is_template":false,"pods":'
+param="{\"application_name\":${app_name},\"importance\": ${app_priority},\"is_template\":false,\"pods\":"
 param+=`jq -R -s -f mapping.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g'`"}"
 echo $param | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' | sed -e 's/\r//g'> "param.json"
 
