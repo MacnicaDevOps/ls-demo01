@@ -30,7 +30,7 @@ echo ${param} | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' > "param.json
 
 echo "デバッグ"
 echo "param.jsonの中身"
-cat param.json 
+cat param.json | jq
 
 # トリアージリクエストを実行する
 echo "------- トリアージリクエスト実行中"
