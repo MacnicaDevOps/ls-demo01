@@ -71,12 +71,10 @@ jobs:
             - image.tar
             - env.txt
 
-#      - attach_workspace:
-#          at: /tmp/workspace
-
-#      - run:
-#          name: "Triage vulnerabilities"
-#          command: |
+      - run:
+          name: "Triage vulnerabilities"
+          command: |
+            ./triage.sh
 #            chmod +x triage_2.sh
 #            ./triage_2.sh
 
