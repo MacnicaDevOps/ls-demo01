@@ -74,10 +74,8 @@ jobs:
       - run:
           name: "Triage vulnerabilities"
           command: |
-            chmod +x triage_2.sh
-            ./triage_2.sh
-#            ./getPrismaData.sh
-#            ./triage.sh
+            ./getPrismaData.sh
+            ./triage.sh
 #            chmod +x triage_2.sh
 #            ./triage_2.sh
 

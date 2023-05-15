@@ -66,4 +66,4 @@ echo "------- LeanSeeksのアップロードデータを生成中"
 vuln_data='[{"id": "ci_scan.json","scanner": 255,"payload":'
             vuln_data+=$(cat "work/ecr_vlun_LS.json")
             vuln_data+="}]"
-            echo "${vuln_data}" > vuln_data.json
+            echo "${vuln_data}" | jq > vuln_data.json
