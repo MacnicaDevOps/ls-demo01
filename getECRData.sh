@@ -28,11 +28,13 @@ echo "------- ECRの脆弱性データをLeanSeeksフォーマットに変換中
 it=1
 number=$(cat work/ecr_vlun.txt | grep -c "CVE-")
 
-ls_data='['
+#ls_data='['
+echo '[' > "ecr_vlun_LS.json"
 while read row; do
   cveId=$(echo ${row} | cut -d '"' -f 2)
   severity=$(echo ${row} | cut -d '"' -f 4)
-  ls_data+="{
+  #ls_data+="{
+  echo "{
     \"cveId\": \"${cveId}\",
     \"packageName\": \"\",
     \"packageVersion\": \"\",
@@ -51,17 +53,19 @@ while read row; do
     \"publicExploits\": \"\",
     \"published\": \"\",
     \"updated\": \"\",
-    \"type\": \"\""
+    \"type\": \"\"" >> "ecr_vlun_LS.json"
   if [ ${it} -eq ${number} ]; then
-    ls_data+="}]"
-    echo ${ls_data}  > "ecr_vlun_LS.json"
+    #ls_data+="}]"
+    echo "}]" >> "ecr_vlun_LS.json"
+    #echo ${ls_data}  > "ecr_vlun_LS.json"
     
     echo "デバッグ ecr_vlun_LS.jsonの中身"
     cat ecr_vlun_LS.json
     
     #rm -r "${dirname}/"
   else
-    ls_data+="},"
+    #ls_data+="},"
+    echo "}," >> "ecr_vlun_LS.json"
   fi
   echo "${it}/${number}"
   it=$((it+1))
@@ -70,7 +74,7 @@ done < work/ecr_vlun.txt
 
 # LeanSeeks用のアップロードデータを生成する
 echo "------- LeanSeeksのアップロードデータを生成中"
-vuln_data='[{"id": "ci_scan.json","scanner": 255,"payload":'
-            vuln_data+=$(cat "ecr_vlun_LS.json")
-            vuln_data+="}]"
-            echo "${vuln_data}" | jq > vuln_data.json
+  echo '[{"id": "ci_scan.json","scanner": 255,"payload":' > vuln_data.json
+  echo $(cat "ecr_vlun_LS.json") >> vuln_data.json
+  echo "}]" >> vuln_data.json
+  #echo "${vuln_data}" | jq > vuln_data.json
