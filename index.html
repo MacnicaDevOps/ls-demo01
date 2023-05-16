@@ -1,36 +1,1286 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<title>MacnicaDevOps</title>
-<meta name="keywords" content="DecOps、Container、Kubernetes" />
-<meta name="description" content="ウェビナーご案内" />
-<link rel="stylesheet" href="demo.css" type="text/css" />
+<!DOCTYPE html>
+<html lang="ja">
+<head><link rel="alternate" hreflang="ja" href="http://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar_11.html"><link rel="alternate" hreflang="en" href="http://www.macnica.co.jp/en/business/dx/manufacturers/prisma/seminar_11.html"><link rel="alternate" hreflang="fr" href="http://www.macnica.co.jp/fr/business/dx/manufacturers/prisma/seminar_11.html"><script src="https://www.macnica.co.jp/j.wovn.io/1" data-wovnio="key=Wkz2vD&amp;backend=true&amp;currentLang=ja&amp;defaultLang=ja&amp;urlPattern=path&amp;langCodeAliases=[]&amp;langParamName=wovn" data-wovnio-info="version=WOVN.php_1.14.4" async></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K5XH5CL');</script>
+<!-- End Google Tag Manager -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,viewport-fit=cover">
+	<meta name="format-detection" content="telephone=no">
+	<!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="https://www.macnica.co.jp/cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://www.macnica.co.jp/cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<title>【AWS、Palo Alto Networks、マクニカ合同ウェビナー】クラウドネイティブ環境の高品質なセキュリティ設計と実践 - DX事業 - マクニカ</title>
+	<meta name="description" content="従来とは異なるクラウドネイティブな環境をどのように保護し、どのように運用していくべきでしょうか？セッションの後半ではPrisma Cloudが提供するクラウドセキュリティの概要や、大量に検知される脆弱性対処のアプローチを解説します。">
+	<link rel="canonical" href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar_11.html"/>
+	<!-- ファビコン -->
+    <!-- OLD <link rel="icon" href="https://www.macnica.co.jp/assets/images/favicon/favicon.ico"> -->
+    <link rel="shortcut icon" href="https://www.macnica.co.jp/assets/images/favicon/favicon.ico">
+    <link rel="apple-touch-icon" href="https://www.macnica.co.jp/assets/images/favicon/favi_b_180.png">
+    <link rel="icon" type="image/png" href="https://www.macnica.co.jp/assets/images/favicon/favi_b_256.png">
+	<!-- OGP -->
+	<meta property="og:title" content="【AWS、Palo Alto Networks、マクニカ合同ウェビナー】クラウドネイティブ環境の高品質なセキュリティ設計と実践 - DX事業 - マクニカ">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar_11.html">
+	<meta property="og:image" content="https://www.macnica.co.jp/business/dx/prisma/image/prisma_sem11_ogp.jpg" />
+	<meta property="og:description" content="従来とは異なるクラウドネイティブな環境をどのように保護し、どのように運用していくべきでしょうか？セッションの後半ではPrisma Cloudが提供するクラウドセキュリティの概要や、大量に検知される脆弱性対処のアプローチを解説します。">
+	<meta property="og:site_name" content="株式会社マクニカ">
+  <!-- END webfont -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://www.macnica.co.jp/assets/css/html5reset-1.6.1.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.macnica.co.jp/assets/css/common.css?update=20230405" />
+  <link rel="stylesheet" type="text/css" href="https://www.macnica.co.jp/assets/css/customize.css?update=20230329" /><!-- 共通CSS 追加 -->
+	<link rel="stylesheet" type="text/css" href="https://www.macnica.co.jp/assets/css/template.css?update=20230405" />
+	<script type="text/javascript" src="https://www.macnica.co.jp/assets/js/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+	<script type="text/javascript" src="https://www.macnica.co.jp/assets/js/deSVG-gh-pages/desvg.js"></script>
+  <script src="https://www.macnica.co.jp/assets/js/jquery.inview.js"></script><!-- 2023-03-29追加 -->
+	<script type="text/javascript" src="https://www.macnica.co.jp/assets/js/template.js"></script>
+  <!-- 追加JS -->
+	<noscript><link rel="stylesheet" href="https://www.macnica.co.jp/noscript/css/no-script.css"></noscript>
+	<!-- .net -->
+	<link rel="stylesheet" href="https://www.macnica.co.jp/assets/js/colorbox-master/example1/colorbox.css" media="screen"/>
+	<link href="https://www.macnica.co.jp/assets/css/jquery.bxslider.css" rel=stylesheet type="text/css">
+	<link href="https://www.macnica.co.jp/assets/css/net.css?update=2023-04-19" rel="stylesheet" type="text/css">
+	<script src="https://www.macnica.co.jp/assets/js/colorbox-master/jquery.colorbox-min.js"></script>
+	<script src="https://www.macnica.co.jp/assets/js/jquery.bxSlider.min.js"></script>
+	<script src="https://www.macnica.co.jp/assets/js/net.js"></script>
 </head>
-<body>
-<div id="outer">
-  <div id="header">	 
-    <div><img src="logo.png" width=300></div>
-    <div><h1>コンテナ開発でDevSecOpsを実現！誰もがつまずくシフトレフトの課題に対処</h1></div>
-  <div id="contents">
-	
-     <h3>今日のアジェンダ</h3>
-	<ul>
-		<li>  1. コンテナの普及とDevOps</li>
-    <li>  2. コンテナ環境でDevSecOpsに立ちはだかる壁</li>
-    <li>  3. サプライチェーンのリクスに対処する</li>
-    <li>  4. デモ</li>
-    <li>  5. まとめ</li>
-	</ul>
+<body id="body_container" class="">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5XH5CL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <!-- main -->
+  <div id="main" class="sticky">
+    <!-- sidebar -->
+    <aside id="sidebar">
+      <div class="innerBox">
+        <div class="header">
+					<div class="logo"><a href="https://www.macnica.co.jp/"><img class="pc" src="https://www.macnica.co.jp/assets/images/common/logo_wht.png" alt="macnica"><img class="sp" src="https://www.macnica.co.jp/assets/images/common/sp/logo.png" alt="macnica"></a></div>
+					<div class="menuBtn"><a href="#" class="noscroll"><span></span></a></div>
+				</div>
+        <div class="sidebar-header innerBox02">
+          <div id="breadcrumb">
+						<ol class="sample" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/">
+									<span itemprop="name"><i class="icon-home"><img src="https://www.macnica.co.jp/assets/images/element-list/icon/home.png" alt="HOME"></i> <span style="display:none;">HOME</span></span>
+								</a>
+								<meta itemprop="position" content="1">
+							</li>          
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/business/">
+								<span itemprop="name">マクニカの事業</span>
+								</a>
+								<meta itemprop="position" content="2" >
+							</li>
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/business/dx/">
+								<span itemprop="name">DX事業</span>
+								</a>
+								<meta itemprop="position" content="3" >
+							</li>
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/business/dx/manufacturers/">
+								<span itemprop="name">製品情報・サービス</span>
+								</a>
+								<meta itemprop="position" content="4" >
+							</li>
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/">
+								<span itemprop="name">Prisma Cloud（旧Twistlock）</span>
+								</a>
+								<meta itemprop="position" content="5" >
+							</li>
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar.html">
+								<span itemprop="name">セミナー</span>
+								</a>
+								<meta itemprop="position" content="6" >
+							</li>
+							<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+								<a itemprop="item" href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar_11.html">
+								<span itemprop="name">【AWS、Palo Alto Networks、マクニカ合同ウェビナー】クラウドネイティブ環境の高品質なセキュリティ設計と実践</span>
+								</a>
+								<meta itemprop="position" content="7" >
+							</li>
+						</ol>
+					</div>
+          <header>
+            <h1>【AWS、Palo Alto Networks、マクニカ合同ウェビナー】クラウドネイティブ環境の高品質なセキュリティ設計と実践</h1>
+
+
+            <!-- ■■■■ マクニカDevOpsロゴ ■■■■ -->
+            
+            <!-- 
+            <img class="imgc img_auto" src="macnicadevops.png" alt="MacnicaDevOps">
+            -->
+
+
+          </header>
+        </div>
+        <div class="sidebar-bottom" data-height="116">
+	<div class="search">
+						<div class="innerBox">
+							<form name="search_form" action="https://search.macnica.co.jp/" method="GET" onsubmit="return mysearch(this);">
+                            	<input type="text" name="kw" value="" class="iSearchAssist">
+								<input type="hidden" name="ie" value="u">
+                            	<button type="submit"><img src="https://www.macnica.co.jp/assets/images/common/ico_search.svg" alt=""></button>
+							</form>
+							<div class="colbox">
+                             <div class="wovn-languages"> </div>
+							</div>
+						</div>
+					</div>
+	<div class="contact">
+    <a href="https://go.macnica.net/MNC-DX-Inquiry-Form.html?_ga=2.162450107.660202391.1632698626-1377500180.1545982308" class="button action01"><span class="text">事業お問い合わせ</span><i></i></a>
+	</div>
+</div>
+				<div class="globalNavArea">
+					<nav id="gnav">
+	<div class="innerBox">
+		<ul class="menu">
+        <li><a href="https://www.macnica.co.jp/"><span>HOME</span></a></li>
+            
+            <li>
+                <span class="slideToggleAction" data-target="#gnav-slideToggleAction01"><span>マクニカの事業</span><i class="pulldown"><img src="https://www.macnica.co.jp/assets/images/common/ico_pulldown.svg" alt=""></i></span>
+				<ul id="gnav-slideToggleAction01" class="submenu">
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/semiconductor/"><span>半導体</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/network/"><span>ネットワーク</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/security/"><span>セキュリティ</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/ai_iot/"><span>スマートマニュファクチャリング</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/maas/"><span>スマートシティ/モビリティ</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/ai/"><span>AI</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/dx/"><span>DX</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/servicerobot/"><span>サービスロボット</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/energy/"><span>サーキュラーエコノミー</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/healthcare/"><span>ヘルスケア</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/iot_security/"><span>CPSセキュリティ</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/connectivity/"><span>コネクティビティ</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/consulting/"><span>コンサルティング</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/business/agritech/"><span>フード・アグリテック</span></a></li>
+            
+				</ul>
+            </li>
+            
+            
+
+            
+            
+            <li>
+                <span class="slideToggleAction" data-target="#gnav-slideToggleAction03"><span>会社情報</span><i class="pulldown"><img src="https://www.macnica.co.jp/assets/images/common/ico_pulldown.svg" alt=""></i></span>
+				<ul id="gnav-slideToggleAction03" class="submenu">
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/company/"><span>マクニカについて</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/company/overview/"><span>企業概要</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/company/branch/"><span>拠点情報</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macfehd.co.jp/ir/ja/Top.html" target="_blank"><span>IR情報</span><i class="blank"><img src="https://www.macnica.co.jp/assets/images/common/window_blk-white.svg" alt=""></i></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/company/csr/"><span>CSR情報</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/company/news/"><span>最新情報</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.co.jp/company/stock.html"><span>電子公告</span></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://holdings.macnica.co.jp/" target="_blank"><span>マクニカHDサイトへ</span><i class="blank"><img src="https://www.macnica.co.jp/assets/images/common/window_blk-white.svg" alt=""></i></a></li>
+            
+            
+            
+            	
+				
+				
+                    <li><a href="https://www.macnica.com/" target="_blank"><span>グローバルサイトへ</span><i class="blank"><img src="https://www.macnica.co.jp/assets/images/common/window_blk-white.svg" alt=""></i></a></li>
+            
+				</ul>
+            </li>
+            
+            
+
+            
+
+			<li>
+				<span class="slideToggleAction" data-target="#gnav-slideToggleAction02"><span>採用情報</span><i class="pulldown"><img src="https://www.macnica.co.jp/assets/images/common/ico_pulldown.svg" alt=""></i></span>
+				<ul id="gnav-slideToggleAction02" class="submenu">
+					<li><a href="https://www.macnica.co.jp/recruit/"><span>採用情報トップ</span></a></li>
+					<li><a href="https://www.macnica.co.jp/recruit/recruiting_shinsotsu/"><span>新卒採用</span></a></li>
+					<li><a href="https://www.macnica.co.jp/recruit/career/"><span>キャリア採用</span></a></li>
+					<li><a href="https://www.macnica.co.jp/recruit/handicap/"><span>障がい者採用</span></a></li>
+					<li><a href="https://www.macnica.co.jp/recruit/entry/"><span>エントリー</span></a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</nav>
+
+					<div class="search">
+						<div class="innerBox">
+							<form name="search_form" action="https://search.macnica.co.jp/" method="GET" onsubmit="return mysearch(this);">
+                            	<input type="text" name="kw" value="" class="iSearchAssist">
+								<input type="hidden" name="ie" value="u">
+                            	<button type="submit"><img src="https://www.macnica.co.jp/assets/images/common/ico_search.svg" alt=""></button>
+							</form>
+							<div class="colbox">
+                            	<div class="wovn-languages"> </div>
+							</div>
+						</div>
+					</div>
+					<div class="contact">
+						<a href="
+https://go.macnica.net/MNC-DX-Inquiry-Form.html?_ga=2.162450107.660202391.1632698626-1377500180.1545982308
+
+" class="button action01"><span class="text">事業お問い合わせ</span><i></i></a>
+					</div>                
+				</div><!--.globalNavArea-->
+
+
+
+
+
+				<div class="sidebar-contents">
+					<nav class="navBox colbox ar">
+						<ul class="col">
+							<li><a href="#" class="active"><span>ページトップ</span></a></li>
+							
+							
+							<li><a href="#link1"><span>セミナーの特徴</span></a></li>
+							
+							
+							<li><a href="#link2"><span>日程・お申し込み</span></a></li>
+							
+							
+							<li><a href="#link3"><span>開催要項</span></a></li>
+							
+							
+							<li><a href="#link4"><span>プログラム</span></a></li>
+							
+						</ul>
+					</nav>
+				</div>
+
+      </div>
+    </aside>
+    <!-- /sidebar -->
+
+    <!-- mainContents -->
+    <article id="mainContents" class="sc">
+
+
+<div class="row row01 tabBox">
+  <div class="sp menuBox">
+    <a href="https://www.macnica.co.jp/business/dx/"><span>DX事業メニュー</span></a>
+  </div>
+  <div class="tab pc dx">
+    <div class="col col00 ">
+      <a href="https://www.macnica.co.jp/business/dx/"><span>DX事業<br>HOME</span></a>
+    </div>
+    <div class="col col01 ">
+            <a href="https://www.macnica.co.jp/business/dx/sol_usecase.html"><span>ソリューション</span></a>
+    </div>
+    <div class="col col02 active">
+      <a href="https://www.macnica.co.jp/business/dx/manufacturers/"><span>取扱メーカー</span></a>
+    </div>
+    <div class="col col03 ">
+    <a href="https://www.macnica.co.jp/business/dx/event-seminar/"><span>セミナー・<br>オンデマンド動画</span></a>
+  </div>
+    <div class="col col04 ">
+      <a href="https://www.macnica.co.jp/business/dx/download.html"><span>事例・<br>コラム・資料</span></a>
+    </div>
+    <div class="col col05">
+      <a href="https://go.macnica.net/MNC-DX-Inquiry-Form.html" target="_blank"><span>お問い合わせ</span></a>
+    </div>
   </div>
 
-    <img src="macnicadevops.png" width=500>
+  <div class="sp spMenuArea">
+    <ul class="menu">
+      <li><a href="https://www.macnica.co.jp/business/dx/"><span>DX事業HOME</span></a></li>
+      <li><a href="#solution01" data-category="solution01" role="button"><span>ソリューション</span></a>
 
-<div id="footer">© Macnica, Inc.</div>
+
+
+
+
+        <ul id="solution01" style="display: none;">
+          <li><a href="https://www.macnica.co.jp/business/dx/sol_usecase.html">データ活用</a></li>
+          <li><a href="https://www.macnica.co.jp/business/dx/devops/">DevOps</a></li>
+          <li><a href="https://www.macnica.co.jp/dx/">DXコンサルティング</a></li>
+        </ul>
+
+      </li>
+
+      <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/"><span>取扱メーカー</span></a></li>   
+
+      <li><a href="#biz_seminar" data-category="biz_seminar" role="button"><span>セミナー・オンデマンド動画</span></a>
+        <ul id="biz_seminar" style="display:none;">
+            <li><a href="https://www.macnica.co.jp/business/dx/event-seminar/">セミナー</a></li>
+            <li><a href="https://www.macnica.co.jp/business/dx/ondemand.html">オンデマンド動画</a></li>
+        </ul>
+      </li>
+      <li><a href="#biz_contents" data-category="biz_contents" role="button"><span>事例・コラム・資料</span></a>
+        <ul id="biz_contents" style="display:none;">
+            <!--<li><a href="https://www.macnica.co.jp/business/dx/case.html">事例</a></li>-->
+            <li><a href="https://www.macnica.co.jp/business/dx/download.html">資料</a></li>
+            <li><a href="">コラム</a></li>
+        </ul>
+      </li>
+      <li><a href="https://go.macnica.net/MNC-DX-Inquiry-Form.html" target="_blank"><span>お問い合わせ</span></a></li>
+    </ul>
+  </div>
+
+  
+    
+  <div id="makerSubNab" class="subTab tabNav bizcolor_dx active">
+    <div class="showBox">
+      <div class="bk type-dx"></div>
+      <div class="col col01 " data-bkclass="bkclr-001">
+        <a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/">
+          <span><span class="col">TOP</span></span>
+        </a>
+      </div>
+      
+        <div class="col col02 " data-bkclass="bkclr-002">
+          <a href="#subTabContent01" data-subContent="subTabContent01" class="noscroll">
+            <span><span class="col">製品・サービス</span></span>
+          </a>
+          <div class="subTabContent">
+            <ul class="inner" id="subTabContent01">
+              
+                <li><p>製品</p>
+                  <ul>
+      <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/prismacloud.html">Prisma（旧Twistlock）商品情報 － コンテナ、クラウドセキュリティプラットフォーム - マクニカ</a></li>
+    </ul>
+                </li>
+              
+              
+            </ul>
+          </div>
+        </div>
+      
+      
+        <div class="col col03 " data-bkclass="bkclr-003">
+          <a href="#subTabContent02" data-subContent="subTabContent02" class="noscroll">
+            <span><span class="col">仕様・技術情報</span></span>
+          </a>
+          <div class="subTabContent">
+            <ul class="inner" id="subTabContent02">
+              <li><p>仕様・技術情報</p>
+                <ul>
+            <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/spec.html">Prisma（旧Twistlock）ライセンス仕様</a></li>
+        </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      
+      
+      
+        <div class="col col05 " data-bkclass="bkclr-005">
+          <a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/case.html">
+            <span><span class="col">ユーザ事例</span></span>
+          </a>
+        </div>
+      
+      
+        <div class="col col06 " data-bkclass="bkclr-006">
+          <a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/support.html"><span><span class="col">サポート</span></span></a>
+        </div>
+      
+      
+        <div class="col col07 active" data-bkclass="bkclr-007">
+          <a href="#subTabContent05" data-subContent="subTabContent04" class="noscroll">
+            <span><span class="col">セミナー・コンテンツ</span></span>
+          </a>
+          <div class="subTabContent">
+            <ul class="inner" id="subTabContent05">
+              
+                <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar.html">セミナー</a></li>
+              
+              
+                <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/feature.html">特集記事</a></li>
+              
+              
+                
+                <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/ondemand.html">オンデマンド動画</a></li>
+              
+              
+            </ul>
+          </div>
+        </div>
+      
+      
+        <div class="col col08 " data-bkclass="bkclr-008">
+          <a href="#subTabContent06" data-subContent="subTabContent05" class="noscroll">
+            <span><span class="col">評価機申込・FAQ</span></span>
+          </a>
+          <div class="subTabContent">
+            <ul class="inner" id="subTabContent06">
+              
+                <li><p>評価機申込</p>
+                  <ul>
+            <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/test.html">Prisma（旧Twistlock）評価版申込 </a></li>
+        </ul>
+                </li>
+              
+              
+            </ul>
+          </div>
+        </div>
+      
+      
+        <div class="col col09 " data-bkclass="bkclr-009">
+          <a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/download.html"><span>
+            <span class="col">資料請求</span></span>
+          </a>
+        </div>
+      
+      
+        <div class="col col10 " data-bkclass="bkclr-010">
+          <a href="https://go.macnica.co.jp/Twl-Inquiry-Form.html#_ga=2.260152971.765240138.1631358841-1987496655.1592811712"><span><span class="col">お問い合わせ</span></span></a>
+        </div>
+      
+    </div>
+  </div>
+  
 </div>
-</body>
-</html>
 
+      <div class="row row02 mfgPanel02 sp-mt0" style="background-color: white;">
+        
+          <div class="mfgPanel02row01 colbox">
+            
+              <div class="col col01">
+                <img src="https://www.macnica.co.jp/business/dx/manufacturers/assets_c/2023/05/prisma_logo_1-thumb-444x127-66604.png" width="300">
+              </div>
+            
+            <div class="col">
+              <h2 class="h3">Prisma Cloud（旧Twistlock）</h2>
+              <p>プリズマクラウド</p>
+            </div>
+          </div>
+        
+
+        <div class="row row03 showBox mt_30">
+          
+             
+                <img class="imgc img_auto" src="https://www.macnica.co.jp/business/dx/prisma/image/prisma_sem11_headbn.jpg" alt="【AWS、Palo Alto Networks、マクニカ合同ウェビナー】クラウドネイティブ環境の高品質なセキュリティ設計と実践">
+          
+
+          <section id="link1" class="efb"><h2 class="h2">セミナーの特徴</h2>
+
+    
+    <section class="efb"><h3 class="h3 mt48">①クラウドプラットフォーム活用例　②クラウドサービスの設定不備への対処法　③大量に検知される脆弱性の優先度付け をまとめて解説！</h3>
+
+    
+    <p class="lh18 mb_10 sp_mb_10">ビジネスをより加速させ拡大していくためのアプローチとして、商取引に関わる様々な処理のデジタル化や自動化は非常に有効な手段といえますが、これらを実現するためには最新テクノロジーの活用やスケーラブルなシステムの利用が要件となってきます。クラウドの利用はこういった要件を満たす一番の近道です。本セミナーの前半ではクラウドプラットフォームのパイオニアであるアマゾン ウェブ サービス（AWS）の特徴や活用例を紹介いたします。</p>
+<p class="lh18 mb_30 sp_mb_20">一方で、クラウドはセキュアで便利ながらも、自分自身の責任でセキュリティを適用すべき箇所があることも事実です。従来とは異なるクラウドネイティブな環境をどのように保護し、どのように運用していくべきでしょうか？セッションの後半ではPrisma Cloudが提供するクラウドセキュリティの概要や、大量に検知される脆弱性対処のアプローチを解説します。</p>
+
+    
+    </section>
+</section>
+
+<section id="link2" class="efb"><h2 class="h2">日程・お申し込み</h2>
+
+    
+    <section class="mb_30 sp_mb_30 sp_indent2 csd">
+<div class="scroll_wrap">
+<div class="scroll">
+<table class="tbl_type03">
+<tbody>
+<tr>
+<td style="width: 25%; background: #f4ecf4;">
+<p class="ac">日程</p>
+</td>
+<td style="width: 20%; background: #f4ecf4;">
+<p class="ac">時間</p>
+</td>
+<td style="width: 20%; background: #f4ecf4;">
+<p class="ac">会場</p>
+</td>
+<td style="width: 25%; background: #f4ecf4;">
+<p class="ac">お申し込み</p>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">
+<p class="ac">2023年 5月31日（水）</p>
+</td>
+<td style="background: #fff;">
+<p class="ac">16：00～18：00</p>
+</td>
+<td style="background: #fff;">
+<p class="ac">オンラインセミナー<br />（無料）</p>
+</td>
+<td style="background: #fff;">
+<p class="ac"><a href="https://go.macnica.co.jp/Twl-20230531-AWSPAN-Entry-Form.html" class="button action01 smallest" target="_blank" rel="noopener noreferrer"><span class="text">お申し込みはこちら</span><i></i></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+    <section class="efb"><h3 class="h3 mt48">オンラインセミナーの参加手順</h3>
+
+    <ul class="circle">
+<li>本ページ上部の「お申し込みはこちら」から必要情報をご登録ください。</li>
+<li>開催前日17時までに、オンラインセミナーへのログインURLをメールでご案内します。<sup>※</sup></li>
+<li>開催当日、お時間となりましたらログインURLよりアクセスいただき、ご聴講ください。</li>
+</ul>
+<p>※セキュリティポリシーなどの関係で届かない可能性がございます。届いていない場合は、<a href="mailto:devops-sales@macnica.co.jp">devops-sales@macnica.co.jp</a>までご連絡ください。</p>
+<p>※ご聴講にはお申し込みが必須となります。ログインURLの共有はお控えください。</p>
+
+    
+    </section>
+</section>
+
+<section id="link3" class="efb"><h2 class="h2">開催要項</h2>
+
+    
+    <div class="tbl_area">
+<div class="tbl_wrapper">
+<table class="tbl_type03">
+<tbody>
+<tr>
+<th style="width: 15%;">会　場</th>
+<td style="width: 85%;">
+<p class="bold18">オンラインセミナーでの開催</p>
+<p class="addition">※下記URLより事前に接続テストを実施することができます。</p>
+<a href="https://zoom.us/test" target="_blank" rel="noopener noreferrer"><span>https://zoom.us/test</span></a></td>
+</tr>
+<tr>
+<th>定　員</th>
+<td>なし<!--50名
+<p class="addition">※定員に達し次第受付を終了させていただきます。</p>--></td>
+</tr>
+<tr>
+<th>準　備</th>
+<td>当日ご準備いただくもの
+<ul class="circle">
+<li>オンラインセミナーを受講するPC</li>
+<li>インターネット接続のための環境</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th>対　象</th>
+<td>
+<ul class="circle">
+<li>SRE、DevOps、開発、セキュリティ、IT部門のご担当者様</li>
+<li>AWS をご利用のお客様、Prisma Coudをご検討中・ご利用中のお客様</li>
+<li>脆弱性対処にお困りのお客様</li>
+<li>クラウドセキュリティ対策をご検討中のお客様</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th>主　催</th>
+<td>
+<ul class="circle">
+<li>株式会社マクニカ</li>
+<li>マクニカソリューションズ株式会社</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th>共　催</th>
+<td>
+<ul class="circle">
+<li>アマゾン ウェブ サービス ジャパン 合同会社</li>
+<li>パロアルトネットワークス株式会社</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th>費　用</th>
+<td>無料（事前登録制）</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    
+    </section>
+
+<section id="link4" class="efb"><h2 class="h2">プログラム</h2>
+
+    
+    <div class="tbl_area mb16">
+<div class="tbl_wrapper">
+<table class="tbl_type03">
+<tbody>
+<tr>
+<td style="width: 15%; background: #faf7fa;">16：00～16：05</td>
+<td style="width: 85%;">
+<div class="fs18 bold" style="color: #1a90b0;">オープニング</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">16：05～16：35</td>
+<td>
+<div class="fs18 bold mb_10 sp_mb_10" style="color: #1a90b0;">価値創造への集中を可能にするAWSグローバルインフラストラクチャの特徴</div>
+<div class="lh18 mb_10 sp_mb_10">ビジネスにとって重要な価値創造を行うためには、高いセキュリティやコンプライアンス要件に対応しながらも、ビジネス差別化につながらない価値の低い作業を減らし、本来フォーカスすべき価値創造に集中する事が必要です。本セッションではAWSグローバルインフラストラクチャを利用する事で、いかに皆様が価値創造に集中する事ができるのか、AWSグローバルインフラストラクチャの特徴を交えてご説明します。</div>
+<div class="lh18 color_gray_03_text bold">アマゾン ウェブ サービス ジャパン 合同会社<br />パートナーソリューションアーキテクト<br />飯田 祐基</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">16：35～16：40</td>
+<td>
+<div class="fs18 mb_10 sp_mb_10" style="color: #1a90b0;">休憩（5分間）</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">16：40～17：10</td>
+<td>
+<div class="fs18 bold mb_10 sp_mb_10" style="color: #1a90b0;">クラウドサービスにおける設定不備の防止・抑止についてのガイドラインに関して解説</div>
+<div class="lh18 mb_10 sp_mb_10">近日[総務省]からクラウドサービス提供・利用における適切な設定に関する<a href="https://www.soumu.go.jp/menu_news/s-news/01cyber01_02000001_00149.html" target="_blank" rel="noopener noreferrer">ガイドラインが</a>提供されてます。<br />今現在、総務省から設定不備または利用者側のミスや理解不足を考慮して設定不備が発生しないよう安全安心なクラウドサービスの利用/提供するために具体的な対策を整理している。<br />このセッションを通じて総務省が進めてる活動の背景にあるクラウドの脅威を解説して設定不備の絶滅する対策を講じます。</div>
+<div class="lh18 color_gray_03_text bold">パロアルトネットワークス株式会社<br />Chief Technology Officer (CTO)<br />アジェイ・ミスラ</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">17：10～17：15</td>
+<td>
+<div class="fs18 mb_10 sp_mb_10" style="color: #1a90b0;">休憩（5分間）</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">17：15～17：45</td>
+<td>
+<div class="fs18 bold mb_10 sp_mb_10" style="color: #1a90b0;">「脆弱性の大量検知」にスマートに対処しよう</div>
+<div class="lh18 mb_10 sp_mb_10">昨今DevSecOpsという言葉がよくつかわれるようになり、その中で「シフトレフト」（コンテナイメージの問題をなるべく開発フェーズの早い段階で対処）というキーワードが聞かれるようになりました。「シフトレフト」は非常に理にかなった考え方である一方で、開発フェーズで検知されるOSSの脆弱性は増えつづけており、全てに対処することは困難で、対処のトリアージ（優先順位付け）が求められています。CVSSにもセベリティという指標がありますが、CriticalやHighだけに対処すればよいのでしょうか？本セッションではリスクベースのトリアージの考え方を、デモを交えて紹介します。</div>
+<div class="lh18 color_gray_03_text bold">株式会社マクニカ ネットワークスカンパニー<br />主席エンジニア<br />野原 峰彦</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">17：45～17：50</td>
+<td>
+<div class="fs18 bold mb_10 sp_mb_10" style="color: #1a90b0;">AWS Marketplace での CPPO（Consulting Partner Private Offers）開始のご案内</div>
+<div class="lh18 color_gray_03_text bold">マクニカソリューションズ株式会社<br />DevOps担当<br />多田 知世</div>
+</td>
+</tr>
+<tr>
+<td style="background: #faf7fa;">17：50～18：00</td>
+<td>
+<div class="fs18 bold mb_10 sp_mb_10" style="color: #1a90b0;">Q&amp;A/クロージング</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    
+    <p class="addition"><span>※プログラムは、予告なく変更される可能性がございます。予めご了承ください。最新情報は本Webページをご確認ください。</span></p>
+
+    
+    <div class="round_box pa_20">
+<p>新型コロナウイルスの影響に鑑み、当面の間、テレワーク（在宅勤務）での業務を基本として継続しております。<br />セミナーに関するお問い合わせにつきましては、大変お手数をおかけいたしますが、製品のお問い合わせフォームまたはメールアドレスへご連絡くださいますようお願いいたします。</p>
+</div>
+
+
+
+
+</section>
+
+
+          
+            <section id="link_contact" class="efb">
+              <h2 id="link_contact">お問い合わせ先</h2>
+              <div class="round_box">
+                <h3 class="h4">株式会社マクニカ</h3>
+                  <p>DevOps 担当</p>
+                <div class="clm02 space-around">
+                  <div>
+                    <p>メールでのお問い合わせ</p>
+                    <div><p class="bold18">devops-sales@macnica.co.jp</p></div>
+                  </div>
+                  <div>
+                  <p>お電話でのお問い合わせ</p>
+                    <div><p class="bold18">045-476-1972</p></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          
+
+          
+          
+            <ul class="bannerList col3">
+    
+    
+      
+    
+    
+      
+    
+    
+    
+      
+    
+    
+      
+      <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/case.html" target="_blank">
+        <img src="https://www.macnica.co.jp/business/dx/manufacturers/prisma/image/prisma_cmmn_case_topicks.jpg" alt="ユーザ事例はこちら">
+      </a></li>
+    
+
+    
+    
+      
+    
+    
+      
+    
+    
+    
+      
+    
+    
+      
+      <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/ondemand.html" target="_blank">
+        <img src="https://www.macnica.co.jp/business/dx/manufacturers/prisma/image/prisma_cmmn_ondemand_topicks.jpg" alt="オンデマンド動画">
+      </a></li>
+    
+
+    
+    
+      
+    
+    
+      
+    
+    
+    
+      
+    
+    
+      
+      <li><a href="https://www.macnica.co.jp/business/dx/manufacturers/prisma/seminar.html" target="_blank">
+        <img src="https://www.macnica.co.jp/business/dx/manufacturers/prisma/image/prisma_cmmn_seminar_topicks.jpg" alt="イベント・無料セミナーのご案内">
+      </a></li>
+    
+  </ul>
+
+  <ul class="bannerList col3">
+    
+    
+      
+    
+    
+      
+    
+    
+    
+      
+    
+    
+
+    
+    
+      
+    
+    
+      
+    
+    
+    
+      
+    
+    
+
+    
+    
+      
+    
+    
+      
+    
+    
+    
+      
+    
+    
+  </ul>
+
+  
+
+    
+  
+
+          
+        </div>
+      </div>
+    </article>
+    <!-- /mainContents -->
+  </div>
+  <!-- /main -->
+
+<div id="cookie" class="cookieMsg-block">
+  <div class="cookie-inner">
+    <div class="cookieMsg">
+      <div class="cookieMsg-inner">
+        <p lang="ja">当ウェブサイトでは、ブラウジング機能を強化し、追加機能を提供するため、Cookieを利用しています。</p>
+      </div>
+      <div class="cookieMsg-ReadMore">
+        <a href="https://www.macnica.co.jp/privacy/#link04" onclick="location.href='/privacy/#link04'" class="arrow-right" title="クッキーとウェブビーコンについて(個人情報保護方針)ページを詳しく読む">詳しく読む</a>
+      </div>
+    </div><!-- /.cookieMsg -->
+    <div class="cookieYes">
+      <p><a href="javascript:void(0)" id="lYes" title="cookieの利用を承諾する。">承諾する</a></p>
+    </div>
+  </div><!-- /.cookie-inner --> 
+</div><!-- /#cookie -->
+
+<!-- mainFooter -->
+	<footer id="mainFooter">
+		<a id="go-pagetop" class="pagetop" href="#"><span></span></a>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+		<div class="row row01 pc">
+			<div class="innerBox colbox">
+            
+            
+
+            
+            
+				<div class="col col01">
+                    <figure>
+                        <figcaption><a href="https://www.macnica.co.jp/business/"><span>マクニカの事業</span></a></figcaption>
+                        <ul>
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/semiconductor/"><span>半導体</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/network/"><span>ネットワーク</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/security/"><span>セキュリティ</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/ai_iot/"><span>スマートマニュファクチャリング</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/maas/"><span>スマートシティ/モビリティ</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/ai/"><span>AI</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/dx/"><span>DX</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/servicerobot/"><span>サービスロボット</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/energy/"><span>サーキュラーエコノミー</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/healthcare/"><span>ヘルスケア</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/iot_security/"><span>CPSセキュリティ</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/connectivity/"><span>コネクティビティ</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/consulting/"><span>コンサルティング</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/business/agritech/"><span>フード・アグリテック</span></a></li>
+            
+                        </ul>
+                    </figure>
+				</div>
+            
+            
+
+            
+            
+                <div class="col col02">
+                    <figure>
+                        <figcaption><a href="https://www.macnica.co.jp/company/"><span>マクニカについて</span></a></figcaption>
+                        <ul>
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/company/"><span>マクニカについて</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/company/overview/"><span>企業概要</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/company/branch/"><span>拠点情報</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macfehd.co.jp/ir/ja/Top.html" target="_blank"><span>IR情報</span><i class="blank"><img src="https://www.macnica.co.jp/assets/images/common/window_blk-footer.png" alt=""></i></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/company/csr/"><span>CSR情報</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/company/news/"><span>最新情報</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.co.jp/company/stock.html"><span>電子公告</span></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://holdings.macnica.co.jp/" target="_blank"><span>マクニカHDサイトへ</span><i class="blank"><img src="https://www.macnica.co.jp/assets/images/common/window_blk-footer.png" alt=""></i></a></li>
+            
+            
+            
+                            
+                            
+                            
+                            <li><a href="https://www.macnica.com/" target="_blank"><span>グローバルサイトへ</span><i class="blank"><img src="https://www.macnica.co.jp/assets/images/common/window_blk-footer.png" alt=""></i></a></li>
+            
+                        </ul>
+                    </figure>
+                </div>
+            
+            
+
+            
+
+
+<div class="col col03">
+	<figure>
+		<figcaption><a href="https://www.macnica.co.jp/recruit/"><span>採用情報</span></a></figcaption>
+		<ul>
+			<li><a href="https://www.macnica.co.jp/recruit/recruiting_shinsotsu/"><span>新卒採用</span></a></li>
+			<li><a href="https://www.macnica.co.jp/recruit/career/"><span>キャリア採用</span></a></li>
+			<li><a href="https://www.macnica.co.jp/recruit/handicap/"><span>障がい者採用</span></a></li>
+			<li><a href="https://www.macnica.co.jp/recruit/entry/"><span>エントリー</span></a></li>
+		</ul>
+	</figure>
+</div>
+<div class="col col04">
+	<figure>
+		<ul>
+			<li><a href="https://www.macnica.co.jp/company/branch/"><span>アクセス</span></a></li>
+			<li><a href="https://www.macnica.co.jp/rules/"><span>サイト利用条件</span></a></li>
+			<li><a href="https://www.macnica.co.jp/privacy/"><span>個人情報保護方針</span></a></li>
+			<li><a href="https://www.macnica.co.jp/sitemap/"><span>サイトマップ</span></a></li>
+			<li><a href="https://www.macnica.co.jp/contact/"><span>お問い合わせ</span></a></li>
+            <li><a href="https://www.macnica.co.jp/support/"><span>サポート</span></a></li>
+            <li class="pc"><span>新型コロナウィルスへの対応</span>
+             <ul><li><a href="https://www.macnica.co.jp/info/covid19/"><span>マクニカの対応方針</span></a></li>
+             <li><a href="https://www.macnica.co.jp/public-relations/news/2022/140447/"><span>保守サービスへの対応</span></a></li>
+             </ul>
+           </li>
+		</ul>
+	</figure>
+<div class="row row02 sp">
+    <p class="ac" style="padding: 30px 0px;">― 新型コロナウィルスへの対応</p>
+    <div class="flex space-around">
+        <p class=""><a href="https://www.macnica.co.jp/info/covid19/" style=" color: #fff;"><span>マクニカの対応方針</span></a></p>
+        <p><a href="https://www.macnica.co.jp/public-relations/news/2022/140447/" style="color: #fff;"><span>保守サービスへの対応</span></a></p>
+    </div>
+</div>
+</div>
+
+			</div>
+		</div>
+		<div class="row row02">
+			<div class="innerBox colbox">
+				<div class="ac"><small class="col col02">&copy;Macnica, Inc. All rights Reserved.</small></div>
+			</div>
+		</div>
+	</footer>
+	<!-- /mainFooter -->
+
+<noscript>
+<div id="noscript" class="noscript-wrapper">
+  <div class="noscript__block">
+    <div class="noscript__block_Content">
+      <div class="noscript__block_title page-top"><em>注意！</em></div>
+  	  <p class="no-script-caution-description" lang="ja">
+	  <span>お客様のブラウザーの設定は、JavaScriptが無効になっています。<br>Javascriptを有効にして再読み込みをお願いいたします。</span></p>
+      <p class="no-script-caution-description" lang="en">
+	  <span class="">JavaScript is disabled in your browser settings.<br>Please enable Javascript and reload.</span></p>
+    </div><!-- /.noscript__block_Content --> 
+  </div><!-- /.noscript__block -->
+</div><!-- /.noscript-wrapper -->
+</noscript>
+<!-- TO TOP ボタンJS -->
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+        window.addEventListener('scroll', function(){
+            if( 100 < window.scrollY ) {
+                //document.getElementById('go-pagetop').style.visibility = 'visible';
+                document.getElementById('go-pagetop').classList.add('fixed');
+                    $("#mainFooter").on("inview", function(event, isInView, visiblePartX, visiblePartY) {
+                    if(isInView){
+                        $("#go-pagetop.fixed").stop().addClass("unlock");
+                    } else {
+                        $("#go-pagetop.fixed").stop().removeClass("unlock");
+                    }
+                });
+
+            } else {
+                document.getElementById('go-pagetop').classList.remove('fixed');
+            }
+        });
+    });
+</script>
+<!-- cookie承諾用JS -->
+<script>
+$(function(){
+    //承諾のcookieJS
+
+	$('.JSoff').css('display','none');
+	$data = $.cookie('cookie-yes_20210316');
+	if($data == 'on') {
+		$('.cookieMsg-block').css('display','none');
+	}
+	$('#lYes').click(function(){
+		$data = 'on';
+		$.cookie('cookie-yes_20210316',$data,{expires:30,path:'/'});
+		$('.cookieMsg-block').css('display','none');
+		return false;
+	});
+});
+</script>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+var _analytics_scr = document.createElement('script');
+_analytics_scr.type = 'text/javascript'; _analytics_scr.async = true; _analytics_scr.src = '/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=1&cb=2025406023';
+var _analytics_elem = document.getElementsByTagName('script')[0]; _analytics_elem.parentNode.insertBefore(_analytics_scr, _analytics_elem);
+})();
+// ]]>
+</script>
+<script type="text/javascript" src="https://www.macnica.co.jp/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=1&cb=1641921740" async></script></body>
+</html>
