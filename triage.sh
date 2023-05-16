@@ -4,8 +4,8 @@
 source param.txt
 
 #デバッグ用
-echo "param.txtの中身"
-cat param.txt
+  #echo "param.txtの中身"
+  #cat param.txt
 
 # LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
 echo "------- LeanSeeksのアップロードURLを情報取得中"
@@ -15,29 +15,27 @@ s3_jwt=$(echo "${cred}" | jq -r ".uploadDestination.key")
 
 # データをLeanSeeksにアップロードする
 echo "------- データをLeanSeeksにアップロード中"
-echo "デバッグ : LeanSeeksのアップロードデータのCVEカウント"
-cat vuln_data.json | jq | grep -c "CVE-"
-ls -lah vuln_data.json
-
+  #echo "デバッグ : LeanSeeksのアップロードデータのCVEカウント"
+  #cat vuln_data.json | jq | grep -c "CVE-"
+  #ls -lah vuln_data.json
 
 curl -X 'PUT' "${s3_url}" --data-binary @vuln_data.json
 
 # トリアージ用のパラメーターをparams.csvからmapping.jqを用いて生成する
 echo "------- トリアージリクエストパラメーターの準備中"
-echo "デバッグ"
-echo "App_Name: ${app_name}"
-echo "App_Priority: ${app_priority}"
-echo "Scanner: ${scanner}"
-
+  #echo "デバッグ"
+  #echo "App_Name: ${app_name}"
+  #echo "App_Priority: ${app_priority}"
+  #echo "Scanner: ${scanner}"
 
 cat mapping.jq | sed -e "s/-SCANNER-/${scanner}/g" > mapping-rp.jq
 param="{ \"application_name\": \"${app_name}\", \"importance\": \"${app_priority}\", \"is_template\": false, \"pods\":"
 param+=$(jq -R -s -f mapping-rp.jq params.csv | jq -r -c '[.[] |select(.pod_name != null and .is_root != "is_root" )]'| sed -e 's/"¥r"//g')"}"
 echo ${param} | sed 's/"TRUE"/true/g' | sed -e 's/"FALSE"/false/g' > "param.json"
 
-echo "デバッグ"
-echo "param.jsonの中身"
-cat param.json | jq
+  #echo "デバッグ"
+  #echo "param.jsonの中身"
+  #cat param.json | jq
 
 # トリアージリクエストを実行する
 echo "------- トリアージリクエスト実行中"
@@ -84,7 +82,7 @@ while true
               elif [ "${status}" == null ]; then
                 echo "トリアージリクエストが失敗しました。"
                 cat t_result.json | jq
-                exit 0
+                exit 1
               fi
               sleep 10
               i=$((i+1))

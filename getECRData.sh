@@ -2,9 +2,8 @@
 
 source /tmp/workspace/env.txt
 
-echo "デバッグ用"
-cat /tmp/workspace/env.txt
-
+  #echo "デバッグ用"
+  #cat /tmp/workspace/env.txt
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
 build_num=$(echo ${image} | cut -d ':' -f 2)
@@ -12,8 +11,8 @@ echo "app_name=ECR_SCAN_${build_num}" > param.txt
 echo 'app_priority="H"' >> param.txt
 echo "scanner=255" >> param.txt
 
-echo "デバッグ用"
-cat param.txt
+  #echo "デバッグ用"
+  #cat param.txt
 
 source param.txt
 
@@ -59,8 +58,8 @@ while read row; do
     echo "}]" >> "ecr_vlun_LS.json"
     #echo ${ls_data}  > "ecr_vlun_LS.json"
     
-    echo "デバッグ ecr_vlun_LS.jsonの中身"
-    cat ecr_vlun_LS.json
+    #echo "デバッグ ecr_vlun_LS.jsonの中身"
+    #cat ecr_vlun_LS.json
     
     #rm -r "${dirname}/"
   else
