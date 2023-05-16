@@ -18,7 +18,7 @@ curl -u "${pc_user}:${pc_pass}" -H "Content-Type: application/json" "${pc_url}/a
 echo "------- LeanSeeksのアップロードデータを生成中"
 echo '[{"id": "ci_scan.json","scanner": 0,"payload":' > vuln_data.json
 cat "ci_scan.json" >> vuln_data.json
-eecho "}]" >> vuln_data.json
+echo "}]" >> vuln_data.json
   #echo "${vuln_data}" > vuln_data.json
 
   #echo "デバッグ : LeanSeeksのアップロードデータのCVEカウント"
