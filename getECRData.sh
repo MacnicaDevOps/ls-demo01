@@ -20,7 +20,7 @@ source param.txt
 echo "------- ECRから脆弱性データを取得中"
 mkdir -p work
 #build_num=$(echo ${image} | cut -d ':' -f 2)
-aws ecr describe-image-scan-findings --repository-name ${CIRCLE_PROJECT_REPONAME,,} --image-id imageTag=${build_num} | jq -c ".imageScanFindings.findings[] |[ .name, .severity ]"  sed -e s/"UNDEFINED"/"unassigned"/g | sed -e s/"INFORMATIONAL"/"unassigned"/g  > work/ecr_vlun.txt
+aws ecr describe-image-scan-findings --repository-name ${CIRCLE_PROJECT_REPONAME,,} --image-id imageTag=${build_num} | jq -c ".imageScanFindings.findings[] |[ .name, .severity ]"  sed -e s/"UNDEFINED"/"unassigned"/g | sed -e s/"INFORMATIONAL"/"low"/g  > work/ecr_vlun.txt
 
 # CVE IDとセベリティをLeanSeeksのフォーマットに割り当てる
 echo "------- ECRの脆弱性データをLeanSeeksフォーマットに変換中"
