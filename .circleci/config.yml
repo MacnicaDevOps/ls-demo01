@@ -6,7 +6,6 @@ executors:
   deployer:
     docker:
       - image: minepicco/cc-build-image:latest
-#  working_directory: /tmp
 
 workflows:
   
@@ -76,8 +75,6 @@ jobs:
           command: |
             ./getPrismaData.sh
             ./triage.sh
-#            chmod +x triage_2.sh
-#            ./triage_2.sh
 
   push:
     executor: deployer
