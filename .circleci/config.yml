@@ -143,12 +143,20 @@ jobs:
             deploy_image="${image}"
             ns="${CIRCLE_PROJECT_REPONAME,,}"
             cat manifest_template.yaml | sed -e "s@-Image_Name-@${deploy_image}@g" | sed -e "s@-Namespace-@${ns}@g" > web.yaml
+            cat ns_template.yaml | sed -e "s@-Namespace-@${ns}@g" > ns.yaml
 
       - run:
-          name: Login to aws
+          name: Login to aws and create ecr secret
           command: |
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
-
+            TOKEN=$(aws ecr get-authorization-token --output text --query 'authorizationData[].authorizationToken')
+            REG=$(echo ${image} | cut -d / -f 1)
+            kubectl create secret docker-registry ecr-token \
+            --docker-server=${REG} \
+            --docker-username=AWS \
+            --docker-password=${TOKEN} --dry-run=client -o yaml > ecr-secret.yaml
+            kubectl apply -f ns.yaml
+            kubectl apply -f ecr-secret.yaml
       - run:
           name: Triage ECR vulnerability scan result with LeanSeeks
           command: |

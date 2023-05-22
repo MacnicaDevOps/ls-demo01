@@ -1,10 +1,4 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  creationTimestamp: null
-  name: -Namespace-
----
-apiVersion: v1
 kind: Service
 metadata:
   name: web
@@ -37,6 +31,8 @@ spec:
         app: web
         tier: frontend
     spec:
+      imagePullSecrets:
+        - name: ecr-token
       containers:
         - name: web
           image: -Image_Name-
