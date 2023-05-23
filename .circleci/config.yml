@@ -149,7 +149,8 @@ jobs:
           name: Login to aws and create ecr secret
           command: |
             source /tmp/workspace/env.txt
-            TOKEN=$(aws ecr get-login-password --region ${awregion})
+            TOKEN=$(aws ecr get-login-password)
+            aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
             REG=$(echo ${image} | cut -d / -f 1)
             echo "debug1 ${REG}"
             echo "debug2 ${TOKEN}"
