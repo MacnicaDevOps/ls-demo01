@@ -149,8 +149,7 @@ jobs:
           name: Login to aws and create ecr secret
           command: |
             source /tmp/workspace/env.txt
-            aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
-            TOKEN=$(aws ecr get-login-password)
+            TOKEN=$(aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint})
             REG=$(echo ${image} | cut -d / -f 1)
             kubectl create secret docker-registry ecr-token \
             --docker-server=${REG} \
