@@ -151,10 +151,13 @@ jobs:
             source /tmp/workspace/env.txt
             TOKEN=$(aws ecr get-login-password --region ${awregion})
             REG=$(echo ${image} | cut -d / -f 1)
+            echo "debug1 ${REG}"
+            echo "debug2 ${TOKEN}"
             kubectl create secret docker-registry ecr-token \
             --docker-server=${REG} \
             --docker-username=AWS \
             --docker-password=${TOKEN} --dry-run=client -o yaml > ecr-secret.yaml
+            echo "debug3 $(cat ecr-secret.yaml)"
             kubectl apply -f ns.yaml
             kubectl apply -f ecr-secret.yaml
       - run:
