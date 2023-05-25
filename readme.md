@@ -1,2 +1,7 @@
-# Demo for ignite 2022
-GitHub > CircleCI > Prisma Cloud > LeanSeeks > Staging (prisma cloud scan)
+# Prisma Cloud/ECR/LeanSeeksデモ
+
+1. Webページの更新をトリガーにCIが動き出します。 
+2. 最初のジョブでPrismaによる脆弱性スキャン結果をLeanSeeksでトリアージし、その結果に問題がなければイメージをECRにプッシュします。
+3. デプロイのジョブに進む前に承認が求められるので、承認します。
+4. ECRの脆弱性スキャン結果を取り寄せ、LeanSeeksでトリアージを行います。問題がなければデプロイ処理が開始します。
+5. デプロイが完了すると更新されたWebページが公開されます。
