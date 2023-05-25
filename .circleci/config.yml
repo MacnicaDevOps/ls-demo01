@@ -141,26 +141,29 @@ jobs:
           command: |
             source /tmp/workspace/env.txt
             deploy_image="${image}"
-            ns="${CIRCLE_PROJECT_REPONAME,,}"
-            cat manifest_template.yaml | sed -e "s@-Image_Name-@${deploy_image}@g" | sed -e "s@-Namespace-@${ns}@g" > web.yaml
-            cat ns_template.yaml | sed -e "s@-Namespace-@${ns}@g" > ns.yaml
+            cat manifest_template.yaml | sed -e "s@-Image_Name-@${deploy_image}@g" | sed -e "s@-Namespace-@${CIRCLE_PROJECT_REPONAME,,}@g" > web.yaml
 
       - run:
-          name: Login to aws and create ecr secret
+          name: Login to aws and when ns or secret does not exist, create manifest and apply
           command: |
             source /tmp/workspace/env.txt
-            TOKEN=$(aws ecr get-login-password)
             aws ecr get-login-password --region ${awregion} | docker login --username AWS --password-stdin ${awsEndpoint}
+            if [ $(kubectl get ns -n ${CIRCLE_PROJECT_REPONAME,,} | grep -c ${CIRCLE_PROJECT_REPONAME,,}) -eq 1 ];then
+              echo "namespace exists"
+            else
+              cat ns_template.yaml | sed -e "s@-Namespace-@${CIRCLE_PROJECT_REPONAME,,}@g" > ns.yaml
+              kubectl apply -f ns.yaml
+              echo "namespace created"
+            fi
+            TOKEN=$(aws ecr get-login-password)
             REG=$(echo ${image} | cut -d / -f 1)
-            echo "debug1 ${REG}"
-            echo "debug2 ${TOKEN}"
             kubectl create secret docker-registry ecr-token \
-            --docker-server=${REG} \
-            --docker-username=AWS \
-            --docker-password=${TOKEN} --dry-run=client -o yaml > ecr-secret.yaml
-            echo "debug3 $(cat ecr-secret.yaml)"
-            kubectl apply -f ns.yaml
+              --docker-server=${REG} \
+              --docker-username=AWS \
+              --namespace=${CIRCLE_PROJECT_REPONAME,,} \
+              --docker-password=${TOKEN} --dry-run=client -o yaml > ecr-secret.yaml
             kubectl apply -f ecr-secret.yaml
+
       - run:
           name: Triage ECR vulnerability scan result with LeanSeeks
           command: |
