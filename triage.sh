@@ -13,6 +13,8 @@ cred=$(curl -X "GET" "${ls_url_demo}/api/vulnerability-scan-results/upload-desti
 s3_url=$(echo "${cred}" | jq -r ".uploadDestination.url")
 s3_jwt=$(echo "${cred}" | jq -r ".uploadDestination.key")
 
+echo ${s3_url}
+
 # データをLeanSeeksにアップロードする
 echo "------- データをLeanSeeksにアップロード中"
   #echo "デバッグ : LeanSeeksのアップロードデータのCVEカウント"
@@ -56,11 +58,11 @@ while true
                 if [ $(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts") != 0 ]; then
                   echo "緊急対処が必要な脆弱性が見つかりました！"
                   echo "レベル5 緊急対処: "$(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts")"件"
-                  exit 0
+                  exit 1
                 elif [ $(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts") != 0 ]; then
                   echo "緊急対処が推奨される脆弱性が見つかりました！"
                   echo "レベル4 緊急対処推奨: "$(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts")"件"
-                  exit 0
+                  exit 1
                 elif [ $(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts") != 0 ]; then
                   echo "対処計画が必要な脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
                   echo "レベル3 対処計画: "$(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts")"件"
