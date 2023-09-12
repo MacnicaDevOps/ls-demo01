@@ -58,6 +58,7 @@ while true
                 if [ $(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts") != 0 ]; then
                   echo "緊急対処が必要な脆弱性が見つかりました！"
                   echo "レベル5 緊急対処: "$(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts")"件"
+                  curl -X POST https://mattermost.com -d {message: "aaaaaa"}
                   exit 1
                 elif [ $(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts") != 0 ]; then
                   echo "緊急対処が推奨される脆弱性が見つかりました！"
@@ -68,6 +69,7 @@ while true
                   echo "レベル3 対処計画: "$(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts")"件"
                   rm -rf work
                   rm -f vuln_data.json
+                  curl -X POST https://mattermost.com -d {message: "問題ありませんでした"}
                   exit 0
                 elif [ $(cat t_result.json | jq -r ".triage.level2VulnerabilityCounts") != 0 ]; then
                   echo "対処計画が推奨される脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
